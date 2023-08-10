@@ -28,12 +28,12 @@ module.exports = async (req, res, next) => {
 			},
 		});
 		const { userPermissions } = result;
-		if (userPermissions[0].access_cms === true) {
-			next();
+		if (userPermissions[0].access_cms === false) {
+			res.status(400).json({
+				message: `You don't have access`,
+			});
 		}
-		return res
-			.status(400)
-			.json({ message: `You don't have access` });
+		next();
 	} catch (error) {
 		console.log(error);
 		return res
