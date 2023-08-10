@@ -28,7 +28,7 @@ Request Body
     </pre>
 </details>
 
-#### Create Group
+#### Create Group with permission access_cms
 
 ```http
 POST /group/add
