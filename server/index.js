@@ -1,21 +1,16 @@
 const express = require('express');
-const db = require('./db');
 const app = express();
-const Users = db.users;
+const authRouter = require('./routes/authRoute');
 app.use(express.json());
-
-app.get('/users', async (req, res) => {
-	const result = await Users.findAll();
-	res.status(200).send(result);
-});
-app.listen(3000, async () => {
+app.use('/auth', authRouter);
+const start = async () => {
 	try {
-		// await sequelize.authenticate();
-		console.log(
-			'Server is running... and connected DB'
+		app.listen(3000, () =>
+			console.log('Server is running')
 		);
 	} catch (error) {
-		// console.log('server is running...');
 		console.log(error);
 	}
-});
+};
+
+start();

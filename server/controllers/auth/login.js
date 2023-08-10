@@ -4,7 +4,7 @@ const {
 } = require('../../services/hashPassword');
 
 const user = require('../../models/index').users_table;
-module.exporst = async (req, res) => {
+module.exports = async (req, res) => {
 	try {
 		const { username, password } = req.body;
 		const result = await user.findOne({
@@ -27,7 +27,7 @@ module.exporst = async (req, res) => {
 			});
 		}
 		const token = generateToken(result.id);
-		return res.stats(200).json({ token: token });
+		return res.status(200).json({ token: token });
 	} catch (error) {
 		console.log(error);
 		return res.status(400).json({ message: error });
