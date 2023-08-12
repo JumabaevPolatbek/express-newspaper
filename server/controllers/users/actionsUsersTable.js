@@ -12,53 +12,27 @@ const usersHasPermission =
 module.exports = {
 	addUser: async (body) => {
 		try {
-			// const {
-			// 	username,
-			// 	password,
-			// 	email,
-			// 	permissions,
-			// } = body;
-			// const resultUser = await usersTable.create({
-			// 	username: username,
-			// 	password: hashPassword(password),
-			// 	email: email,
-			// });
-			// const permissionsResult =
-			// 	await permissionsTable.create({
-			// 		...permissions,
-			// 	});
-			// const permissionUser =
-			// 	await usersHasPermission.create({
-			// 		userId: resultUser.id,
-			// 		permissionId: permissionsResult.id,
-			// 	});
-			// return await usersHasPermission.findOne({
-			// 	where: {
-			// 		id: 8,
-			// 	},
-			// 	include: [
-			// 		{
-			// 			model: usersTable,
-			// 		},
-			// 		{
-			// 			model: permissionsTable,
-			// 		},
-			// 	],
-			// });
-			return await usersTable.findOne({
-				where: {
-					id: 12,
-				},
-				include: {
-					model: permissionsTable,
-					as: 'userPermissions',
-					through: {
-						attributes: [],
-					},
-				},
+			const {
+				username,
+				password,
+				email,
+				permissions,
+			} = body;
+			const resultUser = await usersTable.create({
+				username: username,
+				password: hashPassword(password),
+				email: email,
 			});
-			// console.log(permissions);
-			// return permissions;
+			const permissionsResult =
+				await permissionsTable.create({
+					...permissions,
+				});
+			const permissionUser =
+				await usersHasPermission.create({
+					userId: resultUser.id,
+					permissionId: permissionsResult.id,
+				});
+			return permissionUser;
 		} catch (error) {
 			console.log(error);
 			return error;
@@ -77,4 +51,36 @@ module.exports = {
 			return error;
 		}
 	},
+	deleteUser: async (userId) => {
+		try {
+			const result = await usersHasPermission.findOne(
+				{
+					where: {
+						userId: userId,
+					},
+				}
+			);
+			await permissionsTable.destroy({
+				where: {
+					id: result.permissionId,
+				},
+			});
+			return await usersTable.destroy({
+				where: {
+					id: userId,
+				},
+			});
+		} catch (error) {
+			console.log(error);
+			return error;
+		}
+	},
+	editUser:async(userId,body)=>{
+		try{
+			
+		}catch(error){
+			console.log(error)
+			return error
+		}
+	}
 };

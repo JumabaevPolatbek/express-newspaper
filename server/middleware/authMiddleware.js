@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const secretKey = 'my-secret-key';
 const usersTable = require('../models/index').users_table;
-const permissions = require('../models/index').permissions;
+const permissionsTable =
+	require('../models/index').permissions;
 module.exports = async (req, res, next) => {
 	if (req.method === 'OPTIONS') {
 		next();
@@ -20,19 +21,20 @@ module.exports = async (req, res, next) => {
 				id: userId,
 			},
 			include: {
-				model: permissions,
-				as: 'userPermissions',
+				model: permissionsTable,
+				as: 'permissions',
 				through: {
 					attributes: [],
 				},
 			},
 		});
-		const { userPermissions } = result;
-		if (userPermissions[0].access_cms === false) {
+		const { permissions } = result;
+		if (permissions[0].access_cms === false) {
 			res.status(400).json({
 				message: `You don't have access`,
 			});
 		}
+		req.user = result;
 		next();
 	} catch (error) {
 		console.log(error);

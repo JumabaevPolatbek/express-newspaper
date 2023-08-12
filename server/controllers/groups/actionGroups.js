@@ -22,4 +22,19 @@ module.exports = {
 			console.log(error);
 		}
 	},
+	editGroup: async (groupId, groupName) => {
+		try {
+			return await groups.update(
+				{ name: groupName },
+				{
+					where: {
+						id: groupId,
+					},
+				}
+			);
+		} catch (error) {
+			console.log(error);
+			return error;
+		}
+	},
 };

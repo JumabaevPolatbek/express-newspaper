@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	class users_has_permissions extends Model {
+	class menus extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
@@ -9,24 +9,29 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			this.belongsTo(models.users_table, {
-				foreignKey: 'userId',
-				as: 'user',
-			});
-			this.belongsTo(models.permissions, {
-				foreignKey: 'permissionId',
-				as: 'permissions',
-			});
+			this.hasMany(
+				models.menus_has_submenus_post_languages,
+				{
+					foreignKey: {
+						name: 'menuId',
+						allowNull: false,
+					},
+					onDelete: 'CASCADE',
+				}
+			);
 		}
 	}
-	users_has_permissions.init(
+	menus.init(
 		{
-			description: DataTypes.STRING,
+			title: DataTypes.STRING,
+			slug: DataTypes.STRING,
+			url: DataTypes.STRING,
+			content: DataTypes.TEXT,
 		},
 		{
 			sequelize,
-			modelName: 'users_has_permissions',
+			modelName: 'menus',
 		}
 	);
-	return users_has_permissions;
+	return menus;
 };

@@ -1,4 +1,8 @@
-const { addGroup, removeGroup } = require('./actionGroups');
+const {
+	addGroup,
+	removeGroup,
+	editGroup,
+} = require('./actionGroups');
 const {
 	getSingleGroup,
 	getGroups,
@@ -9,7 +13,8 @@ const {
 module.exports = {
 	getGroupsController: async (req, res) => {
 		try {
-			return res.status(200).json(getGroups);
+			const result = await getGroups();
+			return res.status(200).json(result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -52,11 +57,27 @@ module.exports = {
 	},
 	removeGroupController: async (req, res) => {
 		try {
-			const { groupId } = req.body;
+			const { groupId } = req.params;
 			const result = await removeGroup(groupId);
-			return res.status(200).json(result);
+			return res.status(200).json({
+				message:
+					'Group # ' + groupId + ' has removed',
+			});
 		} catch (error) {
 			console.log(error);
+		}
+	},
+	editGroupController: async (req, res) => {
+		try {
+			const { groupId } = req.params;
+			const { name } = req.body;
+			await editGroup(groupId, name);
+			return res.status(200).json({
+				message: `Group # ${groupId} changed to ${name}`,
+			});
+		} catch (error) {
+			console.log(error);
+			return res.status(400).json(error);
 		}
 	},
 };

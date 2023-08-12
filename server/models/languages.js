@@ -9,6 +9,16 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
+			this.hasMany(
+				models.menus_has_submenus_post_languages,
+				{
+					foreignKey: {
+						name: 'languageId',
+						allowNull: false,
+					},
+					onDelete: 'CASCADE',
+				}
+			);
 		}
 	}
 	languages.init(
