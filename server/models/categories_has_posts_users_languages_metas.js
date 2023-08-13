@@ -1,23 +1,34 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class categories_has_posts_users_languages_metas extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+    class CategoryPostsTranslations extends Model {
+        /**
+         * Helper method for defining associations.
+         * This method is not a part of Sequelize lifecycle.
+         * The `models/index` file will call this method automatically.
+         */
+        static associate(models) {
+            // define association here
+            this.belongsTo(models.category);
+            this.belongsTo(models.posts);
+            this.belongsTo(models.meta);
+            this.belongsTo(models.users_table);
+            this.belongsTo(models.languages);
+        }
     }
-  }
-  categories_has_posts_users_languages_metas.init({
-    description: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'categories_has_posts_users_languages_metas',
-  });
-  return categories_has_posts_users_languages_metas;
+    CategoryPostsTranslations.init(
+        {
+            description: DataTypes.STRING,
+            categoryId: DataTypes.INTEGER,
+            postId: DataTypes.INTEGER,
+            metaId: DataTypes.INTEGER,
+            userId: DataTypes.INTEGER,
+            languageId: DataTypes.INTEGER,
+        },
+        {
+            sequelize,
+            modelName: 'CategoryPostsTranslations',
+        }
+    );
+    return CategoryPostsTranslations;
 };

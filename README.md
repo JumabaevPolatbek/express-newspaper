@@ -261,15 +261,108 @@ PATCH /group/{groupId}
 Request Body
 ```
 
-| Parameter | Type     | Description              |
-| :-------- | :------- | :----------------------- |
-| `name`    | `number` | **Required**. Group Name |
+| Parameter | Type     | Description                         |
+| :-------- | :------- | :---------------------------------- |
+| `name`    | `number` | **Required**. Group Name lower case |
 
 <details>
     <summary>Response</summary>
     <pre>
         {
             "message": "Group # 3 changed to Editors"
+        }
+    </pre>
+</details>
+
+#### Languages
+
+#### Get Languages
+
+```http
+GET /language/all
+```
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        [
+            {
+                "id": 1,
+                "name": "Karakalpak",
+                "country": "Karakalpakstan",
+                "iso_639_code": "kaa"
+            }
+        ]
+    </pre>
+
+</details>
+
+#### Add language only admin right
+
+```http
+POST /language/add
+```
+
+```
+Request body
+```
+
+| Parameter      | Type     | Description                                                                   |
+| :------------- | :------- | :---------------------------------------------------------------------------- |
+| `name`         | `string` | **Required**. Language name lower case                                        |
+| `country`      | `string` | **Required**. Language Country only english letters and lower case            |
+| `iso_639_code` | `string` | **Required**. ISO Languages code only english letters and lenght 3,lower case |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            "id": 2,
+            "name": "Русский",
+            "country": "Russia",
+            "iso_639_code": "ru",
+            "updatedAt": "2023-08-13T11:58:08.909Z",
+            "createdAt": "2023-08-13T11:58:08.909Z"
+        }
+    </pre>
+</details>
+
+#### Edit language only admin right
+
+```http
+PATCH /language/{languageId}
+```
+
+```
+    Request Body
+```
+
+| Parameter      | Type     | Description                                                     |
+| :------------- | :------- | :-------------------------------------------------------------- |
+| `name`         | `string` | Language name lower case                                        |
+| `country`      | `string` | Language Country only english letters and lower case            |
+| `iso_639_code` | `string` | ISO Languages code only english letters and lenght 3,lower case |
+
+<details>
+    <summary>Response </summary>
+    <pre>
+        {
+            message: ${name} success edit
+        }
+    </pre>
+</details>
+
+#### Delete language only admin right
+
+```http
+DELETE /language/{languageId}
+```
+
+<details>
+    <summary>Response </summary>
+    <pre>
+        {
+            message: 'Selected language successfully removed',
         }
     </pre>
 </details>
