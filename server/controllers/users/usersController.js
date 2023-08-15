@@ -1,3 +1,4 @@
+const sharp = require('sharp');
 const {
     addUser,
     addUserToGroup,
@@ -5,7 +6,7 @@ const {
     editUser,
 } = require('./actionsUsersTable');
 const { getUsers } = require('./getUsers');
-
+const path = require('path');
 module.exports = {
     addUserController: async (req, res) => {
         try {
@@ -49,9 +50,16 @@ module.exports = {
     },
     editUserController: async (req, res) => {
         try {
-            const { userId } = req.params;
-            const result = await editUser(userId, req.body);
-            return res.status(200).json(result);
+            // const { userId } = req.params;
+            // const result = await editUser(userId, req.body);
+            // return res.status(200).json(result);
+            const { filename: image } = req.file;
+            console.log(req.body);
+            console.log(req.file.destination);
+            await sharp(req.file.path)
+                .jpeg({ quality: 80 })
+                .toFile(path.resolve(req.file.destination, req.file));
+            fs.unlinkSync(req.file.path);
         } catch (error) {
             console.log(error);
             return res.status(400).json({ message: error });

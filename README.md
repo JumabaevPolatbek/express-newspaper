@@ -130,12 +130,11 @@ PATCH /users/{userId}
 ```
 
 ```
-Request Body
+Request Body Content-type form-data
 ```
 
 | Parameter                 | Type      | Description                      |
 | :------------------------ | :-------- | :------------------------------- |
-| `username`                | `string`  | **Required**. User Name          |
 | `password`                | `string`  | **Required**. Password           |
 | `email`                   | `string`  | **Required**. email              |
 | `permission.access_cms`   | `boolean` | **Required**. Access cms rigth   |
@@ -363,6 +362,104 @@ DELETE /language/{languageId}
     <pre>
         {
             message: 'Selected language successfully removed',
+        }
+    </pre>
+</details>
+
+#### Menus
+
+#### Add menus with admin right
+
+```http
+POST /menus/add
+```
+
+```
+Request Body
+```
+
+| Parameter       | Type     | Description                      |
+| :-------------- | :------- | :------------------------------- |
+| `menus.title`   | `string` | **Required**. Title menu         |
+| `menus.slug`    | `string` | Slug menu                        |
+| `menus.url`     | `string` | Url menu                         |
+| `menus.content` | `text`   | Content menu                     |
+| `description`   | `string` | Description menu                 |
+| `languageId`    | `number` | **Required**. Language id number |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            "id": 4,
+            "description": "KAA Jan'aliqlar",
+            "createdAt": "2023-08-15T11:14:30.000Z",
+            "updatedAt": "2023-08-15T11:14:30.000Z",
+            "menu": {
+                "id": 4,
+                "title": "Jan'aliqlar",
+                "slug": "news",
+                "url": null,
+                "content": null,
+                "createdAt": "2023-08-15T11:14:30.000Z",
+                "updatedAt": "2023-08-15T11:14:30.000Z"
+            },
+            "language": {
+                "id": 1,
+                "name": "Karakalpak",
+                "country": "Karakalpakstan",
+                "iso_639_code": "kaa",
+                "createdAt": "2023-08-13T08:23:36.000Z",
+                "updatedAt": "2023-08-13T08:23:36.000Z"
+            }
+        }
+    </pre>
+</details>
+
+#### Edit menu with admin right
+
+```http
+PATCH /menus/{menuId}
+```
+
+```
+  Request body
+```
+
+| Parameter       | Type     | Description                      |
+| :-------------- | :------- | :------------------------------- |
+| `menus.title`   | `string` | **Required**. Title menu         |
+| `menus.slug`    | `string` | Slug menu                        |
+| `menus.url`     | `string` | Url menu                         |
+| `menus.content` | `text`   | Content menu                     |
+| `description`   | `string` | Description menu                 |
+| `languageId`    | `number` | **Required**. Language id number |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            "id": 4,
+            "description": "KAA Jan'aliqlar",
+            "createdAt": "2023-08-15T11:14:30.000Z",
+            "updatedAt": "2023-08-15T11:14:30.000Z",
+            "menu": {
+                "id": 4,
+                "title": "Jan'aliqlar",
+                "slug": "news",
+                "url": null,
+                "content": null,
+                "createdAt": "2023-08-15T11:14:30.000Z",
+                "updatedAt": "2023-08-15T11:14:30.000Z"
+            },
+            "language": {
+                "id": 1,
+                "name": "Karakalpak",
+                "country": "Karakalpakstan",
+                "iso_639_code": "kaa",
+                "createdAt": "2023-08-13T08:23:36.000Z",
+                "updatedAt": "2023-08-13T08:23:36.000Z"
+            }
         }
     </pre>
 </details>
