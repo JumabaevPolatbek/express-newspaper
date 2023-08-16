@@ -123,31 +123,63 @@ DELETE /users/{userId}
     </pre>
 </details>
 
-#### User edited
+#### User edited with access cms right
 
 ```http
 PATCH /users/{userId}
 ```
 
 ```
-Request Body Content-type form-data
+Request Body Content-type json
 ```
 
-| Parameter                 | Type      | Description                      |
-| :------------------------ | :-------- | :------------------------------- |
-| `password`                | `string`  | **Required**. Password           |
-| `email`                   | `string`  | **Required**. email              |
-| `permission.access_cms`   | `boolean` | **Required**. Access cms rigth   |
-| `permission.is_admin`     | `boolean` | **Required**. is Admin rigth     |
-| `permission.show_users`   | `boolean` | **Required**. Show users rigth   |
-| `permission.edit_users`   | `boolean` | **Required**. Edit users rigth   |
-| `permission.delete_users` | `boolean` | **Required**. Delete users rigth |
+| Parameter    | Type     | Description                    |
+| :----------- | :------- | :----------------------------- |
+| `first_name` | `string` | **Required**. Password         |
+| `last_name`  | `string` | **Required**. email            |
+| `info`       | `text`   | **Required**. Access cms rigth |
 
 <details>
     <sumamry>Response</summary>
     <pre>
         {
             message: '{userId} has changed'
+        }
+    </pre>
+</details>
+
+#### Image upload with access cms right
+
+```http
+PUT /users/{userId}
+```
+
+```
+Request Body Content-type form-data
+```
+
+| Parameter | Type   | Description                |
+| :-------- | :----- | :------------------------- |
+| `avatar`  | `file` | **Required**. JPG JPEG PNG |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {message:'Success'}
+    </pre>
+</details>
+
+#### Image delete with access cms right
+
+```http
+DELETE /users/image/{imageId}
+```
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            message:'Success'
         }
     </pre>
 </details>
@@ -463,3 +495,38 @@ PATCH /menus/{menuId}
         }
     </pre>
 </details>
+
+#### Delete Menu with admin right
+
+```http
+DELETE /menus/{menuId}
+```
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            message:'Success'
+        }
+    </pre>
+</details>
+
+#### Add submenu and bind parent menu with admin right
+
+```http
+POST /submenu/add
+```
+
+```
+Request Body
+```
+
+| Parameter             | Type     | Description                      |
+| :-------------------- | :------- | :------------------------------- |
+| `submenu.title`       | `string` | **Required**. Title menu         |
+| `submenu.slug`        | `string` | Slug menu                        |
+| `submenu.url`         | `string` | Url menu                         |
+| `submenu.content`     | `text`   | Content menu                     |
+| `submenu.description` | `string` | Description menu                 |
+| `parentMenuId`        | `number` | **Required**. Language id number |
+| `languageId`          | `number` | **Required**. Language id number |

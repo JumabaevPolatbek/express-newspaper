@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			this.hasMany(models.users_table, {
 				foreignKey: 'imageId',
+				as: 'userImage',
+				onDelete: 'SET NULL',
 			});
 			this.hasMany(models.posts, {
 				foreignKey: 'imageId',

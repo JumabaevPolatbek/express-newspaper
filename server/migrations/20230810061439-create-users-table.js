@@ -49,8 +49,7 @@ module.exports = {
                         model: 'images',
                         key: 'id',
                     },
-                    onDelete: 'CASCADE',
-                    onUpdate: 'CASCADE',
+                    onDelete: 'SET NULL',
                 })
             );
     },
