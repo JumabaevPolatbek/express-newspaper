@@ -521,12 +521,39 @@ POST /submenu/add
 Request Body
 ```
 
-| Parameter             | Type     | Description                      |
-| :-------------------- | :------- | :------------------------------- |
-| `submenu.title`       | `string` | **Required**. Title menu         |
-| `submenu.slug`        | `string` | Slug menu                        |
-| `submenu.url`         | `string` | Url menu                         |
-| `submenu.content`     | `text`   | Content menu                     |
-| `submenu.description` | `string` | Description menu                 |
-| `parentMenuId`        | `number` | **Required**. Language id number |
-| `languageId`          | `number` | **Required**. Language id number |
+| Parameter             | Type     | Description                          |
+| :-------------------- | :------- | :----------------------------------- |
+| `submenu.title`       | `string` | **Required**. Title menu             |
+| `submenu.slug`        | `string` | Slug menu                            |
+| `submenu.url`         | `string` | Url menu                             |
+| `submenu.content`     | `text`   | Content menu                         |
+| `submenu.description` | `string` | Description menu                     |
+| `parentMenuId`        | `number` | **Required**. Language id number     |
+| `languageId`          | `number` | **Required**. Language id number     |
+| `description`         | `string` | Description submenu bind menu parent |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            "id": 1,
+            "title": "Dunya jan'aliqlari",
+            "slug": "world news",
+            "submenus": [
+                {
+                    "id": 5,
+                    "menuId": 4,
+                    "languageId": 1,
+                    "description": "world",
+                    "submenuId": 1,
+                    "updatedAt": "2023-08-17T02:58:26.563Z",
+                    "createdAt": "2023-08-17T02:58:26.563Z"
+                }
+            ],
+            "updatedAt": "2023-08-17T02:58:26.504Z",
+            "createdAt": "2023-08-17T02:58:26.504Z"
+        }
+    </pre>
+</details>
+
+#### Submenu edit 

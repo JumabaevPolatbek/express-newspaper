@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             this.hasMany(models.menus_has_submenus_post_languages, {
-                as: 'submenu',
+                as: 'submenus',
                 foreignKey: {
                     name: 'submenuId',
                     allowNull: true,
