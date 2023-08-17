@@ -6,6 +6,7 @@ const userRouter = require('./routes/usersRoute');
 const languageRouter = require('./routes/languageRoute');
 const menusRouter = require('./routes/menusRoute');
 const submenuRouter = require('./routes/submenuRoute');
+const postRouter=require('./routes/postRoute')
 app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/group', groupRouter);
@@ -13,6 +14,7 @@ app.use('/users', userRouter);
 app.use('/language', languageRouter);
 app.use('/menus', menusRouter);
 app.use('/submenu', submenuRouter);
+app.use('/post',postRouter)
 const start = async () => {
     try {
         app.listen(3000, () => console.log('Server is running'));

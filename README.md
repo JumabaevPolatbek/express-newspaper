@@ -617,3 +617,28 @@ DELETE /submenu/{submenuId}
         }
     </pre>
 </details>
+
+#### Posts
+
+#### Create post and bind menu  with access cms right
+
+```http request
+POST /post/{{menuId}}
+```
+
+```http request
+Request Body
+```
+
+| Parameter           | Type                 | Description                               |
+|:--------------------|:---------------------|:------------------------------------------|
+| `post.title`        | `string`             | **
+Required**. Title menu                  |
+| `post.content`      | `text`               | Content post                              |
+| `post.other_images` | `files/image, array` | **
+Required**. Files JPG/JPEG/PNG count 10 |
+| `mainImage`         | `file/image`         | **
+Required**. JPG/JPEG/PNG                |
+| `langId`            | `number`             | **
+Required**. Language id number          |
+  
