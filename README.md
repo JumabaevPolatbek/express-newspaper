@@ -340,9 +340,12 @@ Request body
 
 | Parameter      | Type     | Description                                                                   |
 | :------------- | :------- | :---------------------------------------------------------------------------- |
-| `name`         | `string` | **Required**. Language name lower case                                        |
-| `country`      | `string` | **Required**. Language Country only english letters and lower case            |
-| `iso_639_code` | `string` | **Required**. ISO Languages code only english letters and lenght 3,lower case |
+| `name`         | `string` | **
+Required**. Language name lower case                                        |
+| `country`      | `string` | **
+Required**. Language Country only english letters and lower case            |
+| `iso_639_code` | `string` | **
+Required**. ISO Languages code only english letters and lenght 3,lower case |
 
 <details>
     <summary>Response</summary>
@@ -556,4 +559,61 @@ Request Body
     </pre>
 </details>
 
-#### Submenu edit 
+#### Submenu edit with admin right
+
+```http
+PUT /submenu/{submenuId}
+```
+
+```
+Request body
+```
+
+| Parameter             | Type     | Description                      |
+| :-------------------- | :------- | :------------------------------- |
+| `submenu.title`       | `string` | **Required**. Title menu         |
+| `submenu.slug`        | `string` | Slug menu                        |
+| `submenu.url`         | `string` | Url menu                         |
+| `submenu.content`     | `text`   | Content menu                     |
+| `submenu.description` | `string` | Description menu                 |
+| `parentMenuId`        | `number` | **Required**. Language id number |
+| `languageId`          | `number` | **Required**. Language id number |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            message:'Success'
+        }
+    </pre>
+</details>
+
+#### Submenu bind to parent menu with admin right
+
+```http request
+POST /submenu/{submenuId}&languageId={langId}&parentMenuId={parentMenuId}
+```
+
+<details>
+    <summary>Response</summary>
+        <<pre>
+            {
+                message:'Succes'
+            }
+        </pre>
+</details>
+
+#### Delete submenu with admin right
+
+```http request
+DELETE /submenu/{submenuId}
+```
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            message:'Success'
+        }
+    </pre>
+</details>

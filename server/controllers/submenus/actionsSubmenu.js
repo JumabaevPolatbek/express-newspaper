@@ -30,4 +30,45 @@ module.exports = {
             return error;
         }
     },
+    editSubmenuById: async (submenuId, body) => {
+        try {
+            const { submenu, parentMenuId, languageId } = body;
+            await submenuTable.update(
+                { ...submenu },
+                { where: { id: submenuId } }
+            );
+            return await menuSubmenuLangTable.update(
+                { menuId: parentMenuId, languageId: languageId },
+                { where: { submenuId: submenuId } }
+            );
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    },
+    submenuBindParentMenu:async({submenuId, langId, parentMenuId})=>{
+        try{
+            return  await menuSubmenuLangTable.update({
+                submenuId: submenuId
+            },{
+                where:{
+                    menuId: parentMenuId,
+                    languageId:langId
+                }
+            })
+        }catch(error){
+            console.log(error)
+            return error
+        }
+    },
+    delSubmenu:async(submenuId)=>{
+        try{
+            return  await submenuTable.destroy({where:{
+                id:submenuId
+                }})
+        }catch (e){
+            console.log(e)
+            return e
+        }
+    }
 };

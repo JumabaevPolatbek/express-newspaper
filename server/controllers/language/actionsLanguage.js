@@ -30,15 +30,7 @@ module.exports = {
     },
     addLanguage: async (body) => {
         try {
-            const [langAdd, created] = await languageTable.findOrCreate({
-                where: {
-                    ...body,
-                },
-            });
-            if (created === true) {
-                return langAdd;
-            }
-            return created;
+            return await languageTable.create({ ...body });
         } catch (error) {
             console.log(error);
             return error;
