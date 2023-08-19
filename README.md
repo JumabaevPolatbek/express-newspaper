@@ -338,14 +338,14 @@ POST /language/add
 Request body
 ```
 
-| Parameter      | Type     | Description                                                                   |
-| :------------- | :------- | :---------------------------------------------------------------------------- |
-| `name`         | `string` | **
-Required**. Language name lower case                                        |
-| `country`      | `string` | **
-Required**. Language Country only english letters and lower case            |
-| `iso_639_code` | `string` | **
-Required**. ISO Languages code only english letters and lenght 3,lower case |
+| Parameter                                                                     | Type     | Description |
+| :---------------------------------------------------------------------------- | :------- | :---------- |
+| `name`                                                                        | `string` | \*\*        |
+| Required\*\*. Language name lower case                                        |
+| `country`                                                                     | `string` | \*\*        |
+| Required\*\*. Language Country only english letters and lower case            |
+| `iso_639_code`                                                                | `string` | \*\*        |
+| Required\*\*. ISO Languages code only english letters and lenght 3,lower case |
 
 <details>
     <summary>Response</summary>
@@ -620,7 +620,7 @@ DELETE /submenu/{submenuId}
 
 #### Posts
 
-#### Create post and bind menu  with access cms right
+#### Create post and bind menu with access cms right
 
 ```http request
 POST /post/{{menuId}}
@@ -631,14 +631,9 @@ Request Body
 ```
 
 | Parameter           | Type                 | Description                               |
-|:--------------------|:---------------------|:------------------------------------------|
-| `post.title`        | `string`             | **
-Required**. Title menu                  |
+| :------------------ | :------------------- | :---------------------------------------- |
+| `post.title`        | `string`             | **Required**. Title menu                  |
 | `post.content`      | `text`               | Content post                              |
-| `post.other_images` | `files/image, array` | **
-Required**. Files JPG/JPEG/PNG count 10 |
-| `mainImage`         | `file/image`         | **
-Required**. JPG/JPEG/PNG                |
-| `langId`            | `number`             | **
-Required**. Language id number          |
-  
+| `post.other_images` | `files/image, array` | **Required**. Files JPG/JPEG/PNG count 10 |
+| `post.mainImage`    | `file/image`         | ** Required**. JPG/JPEG/PNG               |
+| `languageId`        | `number`             | **Required**. Language id number          |

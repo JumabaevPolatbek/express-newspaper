@@ -6,7 +6,8 @@ const storage = multer.diskStorage({
 	filename: (req, file, cb) => {
 		cb(
 			null,
-			moment().format('YYYY-MM-DD-HH-mm-ss') +
+			moment().format('YYYY-MM-DD-HH-mm-ss-') +
+				Math.floor(Math.random() * 1e9) +
 				path.extname(file.originalname)
 		);
 	},
