@@ -1,19 +1,40 @@
 const {
-    addMenuController,
-    editMenuController,
-    delMenuController,
-    getMenusController,
+	addMenuController,
+	editMenuController,
+	delMenuController,
+	getMenusController,
+	getMenuByIdController,
 } = require('../controllers/menus/menusControllers');
 const adminMiddleware = require('../middleware/adminMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const router = require('express').Router();
 
-router.get('/:languageId', getMenusController);
+router.get('/lang=:languageId', getMenusController);
 
-router.post('/add', authMiddleware, adminMiddleware, addMenuController);
+router.get(
+	'/menuId=:menuId&langId=:languageId',
+	getMenuByIdController
+);
 
-router.patch('/:menuId', authMiddleware, adminMiddleware, editMenuController);
+router.post(
+	'/add',
+	authMiddleware,
+	adminMiddleware,
+	addMenuController
+);
 
-router.delete('/:menuId', authMiddleware, adminMiddleware, delMenuController);
+router.patch(
+	'/:menuId',
+	authMiddleware,
+	adminMiddleware,
+	editMenuController
+);
+
+router.delete(
+	'/:menuId',
+	authMiddleware,
+	adminMiddleware,
+	delMenuController
+);
 module.exports = router;

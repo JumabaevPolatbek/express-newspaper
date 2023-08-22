@@ -338,14 +338,11 @@ POST /language/add
 Request body
 ```
 
-| Parameter                                                                     | Type     | Description |
-| :---------------------------------------------------------------------------- | :------- | :---------- |
-| `name`                                                                        | `string` | \*\*        |
-| Required\*\*. Language name lower case                                        |
-| `country`                                                                     | `string` | \*\*        |
-| Required\*\*. Language Country only english letters and lower case            |
-| `iso_639_code`                                                                | `string` | \*\*        |
-| Required\*\*. ISO Languages code only english letters and lenght 3,lower case |
+| Parameter      | Type     | Description                                                                   |
+| :------------- | :------- | :---------------------------------------------------------------------------- |
+| `name`         | `string` | **Required**. Language name lower case                                        |
+| `country`      | `string` | **Required**. Language Country only english letters and lower case            |
+| `iso_639_code` | `string` | **Required**. ISO Languages code only english letters and lenght 3,lower case |
 
 <details>
     <summary>Response</summary>
@@ -412,8 +409,60 @@ GET /menus/{languageId}
 <details>
     <summary>Response body</summary>
     <pre>
-        
+        [
+            {
+                "id": 1,
+                "title": "News",
+                "slug": "news",
+                "url": null,
+                "content": "proba",
+                "languageId": 1,
+                "childMenus": [
+                    {
+                        "submenuId": 1,
+                        "submenu": {
+                            "id": 1,
+                            "title": "our news",
+                            "slug": "our news",
+                            "content": "our news"
+                        }
+                    }
+                ]
+            }
+        ]
     </pre>
+</details>
+
+#### Get Menu by id
+
+```http request
+GET /menu/menuId={menuId}&langId={languageId}
+```
+
+<details>
+    <summary>Response </summary>
+    <pre>
+        {
+            "id": 1,
+            "title": "News",
+            "slug": "news",
+            "url": null,
+            "content": "proba",
+            "languageId": 1,
+            "childMenus": [
+                {
+                    "submenuId": 1,
+                    "submenu": {
+                        "id": 1,
+                        "title": "our news",
+                        "slug": "our news",
+                        "content": "our news"
+                    }
+                }
+            ]
+        }
+    </pre>
+
 </details>
 
 #### Add menus with admin right
@@ -499,7 +548,7 @@ DELETE /menus/{menuId}
     </pre>
 </details>
 
-#### Add submenu and bind parent menu with admin right
+#### Add submenu with admin right
 
 ```http
 POST /submenu/add
@@ -509,37 +558,25 @@ POST /submenu/add
 Request Body
 ```
 
-| Parameter             | Type     | Description                          |
-| :-------------------- | :------- | :----------------------------------- |
-| `submenu.title`       | `string` | **Required**. Title menu             |
-| `submenu.slug`        | `string` | Slug menu                            |
-| `submenu.url`         | `string` | Url menu                             |
-| `submenu.content`     | `text`   | Content menu                         |
-| `submenu.description` | `string` | Description menu                     |
-| `parentMenuId`        | `number` | **Required**. Language id number     |
-| `languageId`          | `number` | **Required**. Language id number     |
-| `description`         | `string` | Description submenu bind menu parent |
+| Parameter    | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
+| `title`      | `string` | **Required**. Title menu         |
+| `slug`       | `string` | Slug menu                        |
+| `url`        | `string` | Url menu                         |
+| `content`    | `text`   | Content menu                     |
+| `languageId` | `number` | **Required**. Language id number |
 
 <details>
     <summary>Response</summary>
     <pre>
         {
             "id": 1,
-            "title": "Dunya jan'aliqlari",
-            "slug": "world news",
-            "submenus": [
-                {
-                    "id": 5,
-                    "menuId": 4,
-                    "languageId": 1,
-                    "description": "world",
-                    "submenuId": 1,
-                    "updatedAt": "2023-08-17T02:58:26.563Z",
-                    "createdAt": "2023-08-17T02:58:26.563Z"
-                }
-            ],
-            "updatedAt": "2023-08-17T02:58:26.504Z",
-            "createdAt": "2023-08-17T02:58:26.504Z"
+            "title": "our news",
+            "slug": "our news",
+            "content": "our news",
+            "languageId": 1,
+            "updatedAt": "2023-08-22T04:42:36.844Z",
+            "createdAt": "2023-08-22T04:42:36.844Z"
         }
     </pre>
 </details>
@@ -554,15 +591,13 @@ PUT /submenu/{submenuId}
 Request body
 ```
 
-| Parameter             | Type     | Description                      |
-| :-------------------- | :------- | :------------------------------- |
-| `submenu.title`       | `string` | **Required**. Title menu         |
-| `submenu.slug`        | `string` | Slug menu                        |
-| `submenu.url`         | `string` | Url menu                         |
-| `submenu.content`     | `text`   | Content menu                     |
-| `submenu.description` | `string` | Description menu                 |
-| `parentMenuId`        | `number` | **Required**. Language id number |
-| `languageId`          | `number` | **Required**. Language id number |
+| Parameter    | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
+| `title`      | `string` | **Required**. Title menu         |
+| `slug`       | `string` | Slug menu                        |
+| `url`        | `string` | Url menu                         |
+| `content`    | `text`   | Content menu                     |
+| `languageId` | `number` | **Required**. Language id number |
 
 <details>
     <summary>Response</summary>
@@ -576,14 +611,14 @@ Request body
 #### Submenu bind to parent menu with admin right
 
 ```http request
-POST /submenu/{submenuId}&languageId={langId}&parentMenuId={parentMenuId}
+POST /submenu/{submenuId}&langId={langId}&parentMenuId={parentMenuId}
 ```
 
 <details>
     <summary>Response</summary>
         <<pre>
             {
-                message:'Succes'
+                message:'Success'
             }
         </pre>
 </details>
@@ -599,6 +634,33 @@ DELETE /submenu/{submenuId}
     <pre>
         {
             message:'Success'
+        }
+    </pre>
+</details>
+
+#### Category
+
+#### Create category with access cms right
+
+```http request
+POST /category/add
+```
+
+| Parameter    | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
+| `name`       | `string` | **Required**. Category name      |
+| `url`        | `text`   | Forwarding address to url        |
+| `languageId` | `number` | **Required**. Language id number |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            "id": 1,
+            "name": "main",
+            "languageId": 1,
+            "updatedAt": "2023-08-22T05:16:20.364Z",
+            "createdAt": "2023-08-22T05:16:20.364Z"
         }
     </pre>
 </details>
