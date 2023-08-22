@@ -2,35 +2,47 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('menus', {
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER,
-            },
-            title: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            slug: {
-                type: Sequelize.STRING,
-            },
-            url: {
-                type: Sequelize.STRING,
-            },
-            content: {
-                type: Sequelize.TEXT,
-            },
-            createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-            },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-            },
-        });
+        await queryInterface
+            .createTable('menus', {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },
+                title: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                },
+                slug: {
+                    type: Sequelize.STRING,
+                },
+                url: {
+                    type: Sequelize.STRING,
+                },
+                content: {
+                    type: Sequelize.TEXT,
+                },
+                createdAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updatedAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            })
+            .then(() =>
+                queryInterface.addColumn('menus', 'languageId', {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                    references: {
+                        model: 'languages',
+                        key: 'id',
+                    },
+                    onDelete: 'CASCADE',
+                })
+            );
     },
     async down(queryInterface, Sequelize) {
         await queryInterface.dropTable('menus');

@@ -1,19 +1,20 @@
 const router = require('express').Router();
-const authmiddleware = require('../middleware/authmiddleware');
-const adminmiddleware = require('../middleware/adminmiddleware');
-const uploadimage = require('../middleware/uplodimage');
+const adminMiddleware = require('../middleware/adminMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
+const uploadimage = require('../middleware/uploadImage');
 const {
-	addPostBindMenuController,
+    addPostBindMenuController, addPostBindCategoryController,
 } = require('../controllers/posts/postControllers');
 const arrUpload = uploadimage.fields([
-	{ name: 'mainImage', maxCount: 1 },
-	{ name: 'other_images', maxCount: 10 },
+    { name: 'mainImage', maxCount: 1 },
+    { name: 'other_images', maxCount: 10 },
 ]);
 router.post(
-	'/menu/:menuId',
-	authmiddleware,
-	adminmiddleware,
-	arrUpload,
-	addPostBindMenuController
+    '/menu/:menuId',
+    authMiddleware,
+    adminMiddleware,
+    arrUpload,
+    addPostBindMenuController
 );
+router.post('/category=:categoryId',authMiddleware,adminMiddleware,arrUpload,addPostBindCategoryController)
 module.exports = router;

@@ -3,19 +3,15 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface
-            .createTable('posts', {
+            .createTable('post_has_meta', {
                 id: {
                     allowNull: false,
                     autoIncrement: true,
                     primaryKey: true,
                     type: Sequelize.INTEGER,
                 },
-                title: {
+                description: {
                     type: Sequelize.STRING,
-                    allowNull: false,
-                },
-                content: {
-                    type: Sequelize.TEXT,
                 },
                 createdAt: {
                     allowNull: false,
@@ -27,22 +23,22 @@ module.exports = {
                 },
             })
             .then(() =>
-                queryInterface.addColumn('posts', 'imageId', {
+                queryInterface.addColumn('post_has_meta', 'postId', {
                     type: Sequelize.INTEGER,
                     allowNull: false,
                     references: {
-                        model: 'images',
+                        model: 'posts',
                         key: 'id',
                     },
                     onDelete: 'CASCADE',
                 })
             )
             .then(() =>
-                queryInterface.addColumn('posts', 'languageId', {
+                queryInterface.addColumn('post_has_meta', 'metaId', {
                     type: Sequelize.INTEGER,
                     allowNull: false,
                     references: {
-                        model: 'languages',
+                        model: 'metas',
                         key: 'id',
                     },
                     onDelete: 'CASCADE',
@@ -50,6 +46,6 @@ module.exports = {
             );
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('posts');
+        await queryInterface.dropTable('post_has_meta');
     },
 };

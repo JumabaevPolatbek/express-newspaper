@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             this.belongsTo(models.images);
             this.belongsToMany(models.images, {
-                as: 'postOtherImages',
+                as: 'postOtherImage',
                 through: 'other_images',
                 foreignKey: {
                     name: 'postId',
@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'CASCADE',
             });
+            this.belongsTo(models.languages);
             this.hasMany(models.menus_has_submenus_post_languages, {
                 as: 'postForMenus',
                 foreignKey: {
@@ -35,6 +36,15 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'CASCADE',
             });
+            this.belongsToMany(models.meta, {
+                as: 'metaForPosts',
+                through: 'post_has_meta',
+                foreignKey: {
+                    name: 'postId',
+                    allowNull: false,
+                },
+                onDelete: 'CASCADE',
+            });
         }
     }
     posts.init(
@@ -42,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
             title: DataTypes.STRING,
             content: DataTypes.TEXT,
             imageId: DataTypes.INTEGER,
+            languageId: DataTypes.INTEGER,
         },
         {
             sequelize,

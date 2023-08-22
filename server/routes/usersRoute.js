@@ -9,7 +9,7 @@ const {
 } = require('../controllers/users/usersController');
 const adminMiddleware = require('../middleware/adminMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
-const uplodImage = require('../middleware/uplodImage');
+const uplodImage = require('../middleware/uploadImage');
 const router = require('express').Router();
 
 //create user with admin

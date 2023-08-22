@@ -17,12 +17,14 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'CASCADE',
             });
+            this.belongsTo(models.languages);
         }
     }
     category.init(
         {
             name: DataTypes.STRING,
             url: DataTypes.STRING,
+            languageId: DataTypes.INTEGER,
         },
         {
             sequelize,

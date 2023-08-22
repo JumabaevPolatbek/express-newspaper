@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'SET NULL',
             });
+            this.belongsTo(models.languages);
         }
     }
     submenu.init(
@@ -24,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
             title: DataTypes.STRING,
             slug: DataTypes.STRING,
             content: DataTypes.TEXT,
+            languageId: DataTypes.INTEGER,
         },
         {
             sequelize,

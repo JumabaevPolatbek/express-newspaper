@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             this.hasMany(models.menus_has_submenus_post_languages, {
-                as: 'menu',
+                as: 'childMenus',
                 foreignKey: {
                     name: 'menuId',
                     allowNull: false,
@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
             slug: DataTypes.STRING,
             url: DataTypes.STRING,
             content: DataTypes.TEXT,
+            languageId: DataTypes.INTEGER,
         },
         {
             sequelize,

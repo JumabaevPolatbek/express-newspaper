@@ -25,6 +25,34 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'CASCADE',
             });
+            this.hasMany(models.posts, {
+                foreignKey: {
+                    name: 'languageId',
+                    allowNull: false,
+                },
+                onDelete: 'CASCADE',
+            });
+            this.hasMany(models.category, {
+                foreignKey: {
+                    name: 'languageId',
+                    allowNull: false,
+                },
+                onDelete: 'CASCADE',
+            });
+            this.hasMany(models.menus, {
+                foreignKey: {
+                    name: 'languageId',
+                    allowNull: false,
+                },
+                onDelete: 'CASCADE',
+            });
+            this.hasMany(models.submenu, {
+                foreignKey: {
+                    name: 'languageId',
+                    allowNull: false,
+                },
+                onDelete: 'CASCADE',
+            });
         }
     }
     languages.init(
