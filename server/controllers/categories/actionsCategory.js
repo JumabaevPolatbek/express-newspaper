@@ -13,11 +13,12 @@ module.exports = {
 	},
 	deleteCategory: async (categoryId) => {
 		try {
-			return await categoryTable.destroy({
+			await categoryTable.destroy({
 				where: {
 					id: categoryId,
 				},
 			});
+			return { message: 'Success' };
 		} catch (e) {
 			console.log(e);
 			return e;

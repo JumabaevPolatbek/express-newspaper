@@ -7,7 +7,9 @@ const otherImagesTable =
 	require('../../models/index').other_images;
 const categoryPostTranslationTable =
 	require('../../models/index').CategoryPostsTranslations;
-const metaTable = require('../../models/index').meta;
+const metaTable = require('../../models/index').metas;
+const postMetaTable =
+	require('../../models/index').post_has_meta;
 module.exports = {
 	addPostBindMenu: async (
 		req,
@@ -26,6 +28,7 @@ module.exports = {
 				title: title,
 				content: content,
 				imageId: imageResult.id,
+				languageId: languageId,
 			});
 
 			const idImages = await imagesTable.bulkCreate(
@@ -70,8 +73,8 @@ module.exports = {
 				title,
 				content,
 				languageId,
-				metaName,
-				metaContent,
+				meta_name,
+				meta_content,
 				userId,
 			} = req.body;
 			const { categoryId } = req.params;
@@ -83,8 +86,12 @@ module.exports = {
 				title: title,
 				content: content,
 				imageId: imageResult.id,
+				languageId: languageId,
 			});
-
+			const metaResult = await metaTable.create({
+				name: meta_name,
+				content: meta_content,
+			});
 			const idImages = await imagesTable.bulkCreate(
 				otherImagesPath
 			);
@@ -95,14 +102,12 @@ module.exports = {
 				});
 			}
 			await otherImagesTable.bulkCreate(arrPath);
+
 			await categoryPostTranslationTable.create(
 				{
 					categoryId: categoryId,
 					postId: postResult.id,
-					meta: {
-						name: metaName,
-						content: metaContent,
-					},
+					metaId: metaResult.id,
 					userId: userId,
 					languageId: languageId,
 				},
@@ -110,13 +115,32 @@ module.exports = {
 					include: [metaTable],
 				}
 			);
+			await postMetaTable.create({
+				postId: postResult.id,
+				metaId: metaResult.id,
+			});
 			return await postsTable.findOne({
 				where: {
 					id: postResult.id,
 				},
-				include: {
-					model: imagesTable,
-				},
+				include: [
+					{
+						model: imagesTable,
+					},
+					{
+						model: metaTable,
+						through: {
+							attributes: [],
+						},
+					},
+					{
+						model: imagesTable,
+						as: 'postOtherImage',
+						through: {
+							attributes: [],
+						},
+					},
+				],
 				attributes: {
 					exclude: ['imageId'],
 				},

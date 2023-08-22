@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             this.belongsTo(models.posts);
-            this.belongsTo(models.meta);
+            this.belongsTo(models.metas);
         }
     }
     post_has_meta.init(

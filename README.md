@@ -640,7 +640,7 @@ DELETE /submenu/{submenuId}
 
 #### Category
 
-#### Create category with access cms right
+#### Create category with admin right
 
 ```http request
 POST /category/add
@@ -665,12 +665,52 @@ POST /category/add
     </pre>
 </details>
 
+#### Category edit with admin right
+
+```http request
+PUT /category/{categoryId}
+```
+
+| Parameter    | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
+| `name`       | `string` | **Required**. Category name      |
+| `url`        | `text`   | Forwarding address to url        |
+| `languageId` | `number` | **Required**. Language id number |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            "id": 1,
+            "name": "main",
+            "languageId": 1,
+            "updatedAt": "2023-08-22T05:16:20.364Z",
+            "createdAt": "2023-08-22T05:16:20.364Z"
+        }
+    </pre>
+</details>
+
+#### Category delete with admin right
+
+```http request
+DELETE /category/{categoryId}
+```
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            message:'Success'
+        }
+    </pre>
+</details>
+
 #### Posts
 
 #### Create post and bind menu with access cms right
 
 ```http request
-POST /post/{{menuId}}
+POST /post/menu={menuId}
 ```
 
 ```http request
@@ -684,3 +724,63 @@ Request Body
 | `post.other_images` | `files/image, array` | **Required**. Files JPG/JPEG/PNG count 10 |
 | `post.mainImage`    | `file/image`         | ** Required**. JPG/JPEG/PNG               |
 | `languageId`        | `number`             | **Required**. Language id number          |
+
+#### Create post and bind category with access cms right
+
+```http request
+POST /post/category={categoryId}
+```
+
+| Parameter      | Type                 | Description                               |
+| :------------- | :------------------- | :---------------------------------------- |
+| `title`        | `string`             | **Required**. Title menu                  |
+| `content`      | `text`               | Content post                              |
+| `other_images` | `files/image, array` | **Required**. Files JPG/JPEG/PNG count 10 |
+| `mainImage`    | `file/image, single` | **Required**. JPG/JPEG/PNG                |
+| `languageId`   | `number`             | **Required**. Language id number          |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            "id": 13,
+            "title": "Our university",
+            "content": "Our university and students life",
+            "languageId": 1,
+            "createdAt": "2023-08-22T11:55:18.000Z",
+            "updatedAt": "2023-08-22T11:55:18.000Z",
+            "image": {
+                "id": 35,
+                "name": "Our university",
+                "path": "uploads\\images\\image-2023-08-22-16-55-17-600502021.png",
+                "createdAt": "2023-08-22T11:55:18.000Z",
+                "updatedAt": "2023-08-22T11:55:18.000Z"
+            },
+            "metas": [
+                {
+                    "id": 8,
+                    "name": "name",
+                    "content": "Karakalpak state university and students life",
+                    "createdAt": "2023-08-22T11:55:18.000Z",
+                    "updatedAt": "2023-08-22T11:55:18.000Z"
+                }
+            ],
+            "postOtherImage": [
+                {
+                    "id": 36,
+                    "name": "Our university",
+                    "path": "uploads\\images\\image-2023-08-22-16-55-17-234659550.png",
+                    "createdAt": "2023-08-22T11:55:18.000Z",
+                    "updatedAt": "2023-08-22T11:55:18.000Z"
+                },
+                {
+                    "id": 37,
+                    "name": "Our university",
+                    "path": "uploads\\images\\image-2023-08-22-16-55-17-709544192.png",
+                    "createdAt": "2023-08-22T11:55:18.000Z",
+                    "updatedAt": "2023-08-22T11:55:18.000Z"
+                }
+            ]
+        }
+    </pre>
+</details>

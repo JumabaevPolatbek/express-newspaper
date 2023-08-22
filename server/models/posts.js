@@ -36,8 +36,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'CASCADE',
             });
-            this.belongsToMany(models.meta, {
-                as: 'metaForPosts',
+            this.belongsToMany(models.metas, {
                 through: 'post_has_meta',
                 foreignKey: {
                     name: 'postId',
