@@ -10,51 +10,31 @@ const categoryPostTranslationTable =
 const metaTable = require('../../models/index').metas;
 const postMetaTable =
 	require('../../models/index').post_has_meta;
+const menuTable = require('../../models/index').menus;
+const submenuTable = require('../../models/index').submenu;
 module.exports = {
-	addPostBindMenu: async (
-		req,
-		otherImagesPath,
-		mainImagePath
-	) => {
+	addPostBindMenu: async (postId, menuId, langId) => {
 		try {
-			var arrPath = [];
-			const { title, content, languageId } = req.body;
-			const { menuId } = req.params;
-			const imageResult = await imagesTable.create({
-				name: title,
-				path: mainImagePath,
-			});
-			const postResult = await postsTable.create({
-				title: title,
-				content: content,
-				imageId: imageResult.id,
-				languageId: languageId,
-			});
-
-			const idImages = await imagesTable.bulkCreate(
-				otherImagesPath
-			);
-			for (const element of idImages) {
-				arrPath.push({
-					postId: postResult.id,
-					imageId: element.id,
+			const result =
+				await menuSubmenuPostTranslate.create({
+					menuId: menuId,
+					postId: postId,
+					languageId: langId,
 				});
-			}
-			await otherImagesTable.bulkCreate(arrPath);
-			await menuSubmenuPostTranslate.create({
-				menuId: menuId,
-				postId: postResult.id,
-				languageId: languageId,
-			});
-			return await postsTable.findOne({
+			return await menuSubmenuPostTranslate.findOne({
 				where: {
-					id: postResult.id,
+					id: result.id,
 				},
-				include: {
-					model: imagesTable,
-				},
+				include: [menuTable, submenuTable],
 				attributes: {
-					exclude: ['imageId'],
+					exclude: [
+						'languageId',
+						'postId',
+						'menuId',
+						'submenuId',
+						'createdAt',
+						'updatedAt',
+					],
 				},
 			});
 		} catch (e) {
@@ -145,6 +125,54 @@ module.exports = {
 					exclude: ['imageId'],
 				},
 			});
+		} catch (e) {
+			console.log(e);
+			return e;
+		}
+	},
+	editPost: async (postId, req) => {
+		try {
+			await postsTable.update(
+				{ ...req.body },
+				{ where: { id: postId } }
+			);
+			return await postsTable.findOne({
+				where: {
+					id: postId,
+				},
+			});
+		} catch (e) {
+			console.log(e);
+			return e;
+		}
+	},
+	deletePost: async (postId) => {
+		try {
+			const imagePost = await imagesTable.findOne({
+				include: {
+					model: postsTable,
+					where: {
+						id: postId,
+					},
+				},
+			});
+			const otherImages =
+				await otherImagesTable.findAll({
+					where: {
+						postId: postId,
+					},
+					include: [imagesTable],
+				});
+			fs.unlinkSync(imagePost.path);
+			for (const element of otherImages) {
+				fs.unlinkSync(element.image.path);
+			}
+			await postsTable.destroy({
+				where: { id: postId },
+			});
+			return {
+				message: 'Post has removed',
+			};
 		} catch (e) {
 			console.log(e);
 			return e;

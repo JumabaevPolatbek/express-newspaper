@@ -707,25 +707,9 @@ DELETE /category/{categoryId}
 
 #### Posts
 
-#### Create post and bind menu with access cms right
-
-```http request
-POST /post/menu={menuId}
-```
-
-```http request
-Request Body
-```
-
-| Parameter           | Type                 | Description                               |
-| :------------------ | :------------------- | :---------------------------------------- |
-| `post.title`        | `string`             | **Required**. Title menu                  |
-| `post.content`      | `text`               | Content post                              |
-| `post.other_images` | `files/image, array` | **Required**. Files JPG/JPEG/PNG count 10 |
-| `post.mainImage`    | `file/image`         | ** Required**. JPG/JPEG/PNG               |
-| `languageId`        | `number`             | **Required**. Language id number          |
-
 #### Create post and bind category with access cms right
+
+#### Content type form-data
 
 ```http request
 POST /post/category={categoryId}
@@ -784,3 +768,181 @@ POST /post/category={categoryId}
         }
     </pre>
 </details>
+
+#### Create post and bind menu with access cms right
+
+```http request
+POST /post/post={postId}&menu={menuId}&lang={languageId}
+```
+
+<details>
+    <summary>Response</summary>
+</details>
+
+#### Edit post with access cms right
+
+```http request
+PUT /post/{postId}
+```
+
+| Parameter    | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
+| `title`      | `string` | **Required**. Title menu         |
+| `content`    | `text`   | Content post                     |
+| `languageId` | `number` | **Required**. Language id number |
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            "id": 13,
+            "title": "University science",
+            "content": "University science",
+            "imageId": 35,
+            "languageId": 1,
+            "createdAt": "2023-08-22T11:55:18.000Z",
+            "updatedAt": "2023-08-24T11:00:43.000Z"
+        }
+    </pre>
+</details>
+
+#### Remove post with access cms right
+
+```http request
+DELETE /post/{postId}
+```
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        {
+            message:'Post has removed'
+        }
+    </pre>
+</details>
+
+#### Get post all
+
+```http request
+GET /post/all
+```
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        [
+            {
+                "id": 1,
+                "title": "New of HEMIS University",
+                "content": "Karakalpak state university",
+                "createdAt": "2023-08-22T11:20:40.000Z",
+                "updatedAt": "2023-08-22T11:20:40.000Z",
+                "image": {
+                    "id": 1,
+                    "name": "New of HEMIS University",
+                    "path": "uploads\\images\\image-2023-08-22-16-20-39-578400451.png",
+                    "createdAt": "2023-08-22T11:20:40.000Z",
+                    "updatedAt": "2023-08-22T11:20:40.000Z"
+                },
+                "postOtherImage": [
+                    {
+                        "id": 2,
+                        "name": "New of HEMIS University",
+                        "path": "uploads\\images\\image-2023-08-22-16-20-39-611938563.png",
+                        "createdAt": "2023-08-22T11:20:40.000Z",
+                        "updatedAt": "2023-08-22T11:20:40.000Z"
+                    },
+                    {
+                        "id": 3,
+                        "name": "New of HEMIS University",
+                        "path": "uploads\\images\\image-2023-08-22-16-20-39-586764757.png",
+                        "createdAt": "2023-08-22T11:20:40.000Z",
+                        "updatedAt": "2023-08-22T11:20:40.000Z"
+                    },
+                    {
+                        "id": 4,
+                        "name": "New of HEMIS University",
+                        "path": "uploads\\images\\image-2023-08-22-16-20-39-643587670.png",
+                        "createdAt": "2023-08-22T11:20:40.000Z",
+                        "updatedAt": "2023-08-22T11:20:40.000Z"
+                    }
+                ],
+                "language": {
+                    "name": "English",
+                    "iso_639_code": "en"
+                }
+            }
+        ]
+    </pre>
+</details>
+
+#### Get posts and category 
+
+```http request
+GET /post/category
+```
+<details>
+    <summary>Response</summary>
+    <pre>
+        [
+            {
+                "id": 1,
+                "description": null,
+                "category": {
+                    "id": 1,
+                    "name": "main",
+                    "url": null
+                },
+                "post": {
+                    "id": 6,
+                    "title": "Our university",
+                    "content": "Our university and students life",
+                    "createdAt": "2023-08-22T11:42:27.000Z",
+                    "updatedAt": "2023-08-22T11:42:27.000Z",
+                    "language": {
+                        "name": "English",
+                        "iso_639_code": "en"
+                    },
+                    "image": {
+                        "id": 14,
+                        "name": "Our university",
+                        "path": "uploads\\images\\image-2023-08-22-16-42-26-554198663.png",
+                        "createdAt": "2023-08-22T11:42:27.000Z",
+                        "updatedAt": "2023-08-22T11:42:27.000Z"
+                    },
+                    "postOtherImage": [
+                        {
+                            "id": 15,
+                            "name": "Our university",
+                            "path": "uploads\\images\\image-2023-08-22-16-42-26-556237432.png",
+                            "createdAt": "2023-08-22T11:42:27.000Z",
+                            "updatedAt": "2023-08-22T11:42:27.000Z",
+                            "other_images": {
+                                "description": null,
+                                "postId": 6,
+                                "imageId": 15,
+                                "createdAt": "2023-08-22T11:42:27.000Z",
+                                "updatedAt": "2023-08-22T11:42:27.000Z"
+                            }
+                        },
+                        {
+                            "id": 16,
+                            "name": "Our university",
+                            "path": "uploads\\images\\image-2023-08-22-16-42-26-332143088.png",
+                            "createdAt": "2023-08-22T11:42:27.000Z",
+                            "updatedAt": "2023-08-22T11:42:27.000Z",
+                            "other_images": {
+                                "description": null,
+                                "postId": 6,
+                                "imageId": 16,
+                                "createdAt": "2023-08-22T11:42:27.000Z",
+                                "updatedAt": "2023-08-22T11:42:27.000Z"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    </pre>
+</details>
+

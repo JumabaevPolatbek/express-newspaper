@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 			this.belongsTo(models.metas);
 			this.belongsTo(models.users_table, {
 				foreignKey: 'userId',
+				as: 'author',
 			});
 			this.belongsTo(models.languages);
 		}
