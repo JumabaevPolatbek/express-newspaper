@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			this.belongsTo(models.images);
+			this.belongsTo(models.images, {
+				// as: 'main_image',
+			});
 			this.belongsToMany(models.images, {
 				as: 'postOtherImage',
 				through: 'other_images',

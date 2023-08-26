@@ -2,7 +2,9 @@
 
 http://localhost:3000
 
-## API Reference
+## API Reference, if can edit and delete, set headers 'Authorization':'Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MzAyNjY2NiwiZXhwIjoxNjkzMTEzMDY2fQ.7yo2TW490sLwdy36qQ984Ly5oQQQ7DybJ5jqI89tuR8'
+
+## Users
 
 #### Auth login
 
@@ -184,7 +186,7 @@ DELETE /users/image/{imageId}
     </pre>
 </details>
 
-#### GROUP
+## GROUP
 
 #### Get all group only acces cms right
 
@@ -305,7 +307,7 @@ Request Body
     </pre>
 </details>
 
-#### Languages
+## Languages
 
 #### Get Languages
 
@@ -398,7 +400,7 @@ DELETE /language/{languageId}
     </pre>
 </details>
 
-#### Menus
+## Menus
 
 #### Get Menus
 
@@ -638,7 +640,7 @@ DELETE /submenu/{submenuId}
     </pre>
 </details>
 
-#### Category
+## Category
 
 #### Create category with admin right
 
@@ -705,7 +707,24 @@ DELETE /category/{categoryId}
     </pre>
 </details>
 
-#### Posts
+#### Get categories set header 'Accept-Languages':'en|ru|uz|kaa'
+
+<details>
+    <summary>Response</summary>
+    <pre>
+        [
+            {
+                "id": 1,
+                "name": "main",
+                "url": null,
+                "createdAt": "2023-08-22T05:16:20.000Z",
+                "updatedAt": "2023-08-22T05:16:20.000Z"
+            }
+        ]
+    </pre>
+</details>
+
+## Posts
 
 #### Create post and bind category with access cms right
 
@@ -821,7 +840,7 @@ DELETE /post/{postId}
     </pre>
 </details>
 
-#### Get post all
+#### Get post all and set headers 'Accept-Language':'en|ru|uz|kaa'
 
 ```http request
 GET /post/all
@@ -876,11 +895,12 @@ GET /post/all
     </pre>
 </details>
 
-#### Get posts and category 
+#### Get posts and category and set headers 'Accept-Language':'en|ru|uz|kaa'
 
 ```http request
 GET /post/category
 ```
+
 <details>
     <summary>Response</summary>
     <pre>
@@ -946,3 +966,64 @@ GET /post/category
     </pre>
 </details>
 
+#### Get posts with menu and set headers 'Accept-Language':'en|ru|uz|kaa'
+
+<details>
+    <sumamry>Response</summary>
+    <pre>
+        [
+            {
+                "id": 1,
+                "title": "News",
+                "slug": "news",
+                "url": null,
+                "content": "proba",
+                "createdAt": "2023-08-22T04:38:32.000Z",
+                "updatedAt": "2023-08-22T04:38:32.000Z",
+                "posts": [
+                    {
+                        "id": 2,
+                        "post": {
+                            "id": 1,
+                            "title": "New of HEMIS University",
+                            "content": "Karakalpak state university",
+                            "imageId": 1,
+                            "createdAt": "2023-08-22T11:20:40.000Z",
+                            "updatedAt": "2023-08-22T11:20:40.000Z",
+                            "image": {
+                                "id": 1,
+                                "name": "New of HEMIS University",
+                                "path": "uploads\\images\\image-2023-08-22-16-20-39-578400451.png",
+                                "createdAt": "2023-08-22T11:20:40.000Z",
+                                "updatedAt": "2023-08-22T11:20:40.000Z"
+                            },
+                            "postOtherImage": [
+                                {
+                                    "id": 2,
+                                    "name": "New of HEMIS University",
+                                    "path": "uploads\\images\\image-2023-08-22-16-20-39-611938563.png",
+                                    "createdAt": "2023-08-22T11:20:40.000Z",
+                                    "updatedAt": "2023-08-22T11:20:40.000Z"
+                                },
+                                {
+                                    "id": 3,
+                                    "name": "New of HEMIS University",
+                                    "path": "uploads\\images\\image-2023-08-22-16-20-39-586764757.png",
+                                    "createdAt": "2023-08-22T11:20:40.000Z",
+                                    "updatedAt": "2023-08-22T11:20:40.000Z"
+                                },
+                                {
+                                    "id": 4,
+                                    "name": "New of HEMIS University",
+                                    "path": "uploads\\images\\image-2023-08-22-16-20-39-643587670.png",
+                                    "createdAt": "2023-08-22T11:20:40.000Z",
+                                    "updatedAt": "2023-08-22T11:20:40.000Z"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    </pre>
+</details>

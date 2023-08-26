@@ -2,6 +2,7 @@ const {
 	addCategory,
 	deleteCategory,
 	editCategory,
+	getCategorys,
 } = require('./actionsCategory');
 
 module.exports = {
@@ -31,6 +32,16 @@ module.exports = {
 				categoryId,
 				req.body
 			);
+			return res.status(200).json(result);
+		} catch (e) {
+			console.log(e);
+			return res.status(400).json(e);
+		}
+	},
+	getCategorysController: async (req, res) => {
+		try {
+			const language = req.get('Accept-Language');
+			const result = await getCategorys(language);
 			return res.status(200).json(result);
 		} catch (e) {
 			console.log(e);

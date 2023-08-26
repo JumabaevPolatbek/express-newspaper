@@ -9,6 +9,7 @@ const {
 	delPostByIdController,
 	getPostsController,
 	getPostsCategoryController,
+	getPostsByMenuController,
 } = require('../controllers/posts/postControllers');
 const arrUpload = uploadimage.fields([
 	{ name: 'mainImage', maxCount: 1 },
@@ -60,4 +61,5 @@ router.delete(
 );
 router.get('/all', getPostsController);
 router.get('/category', getPostsCategoryController);
+router.get('/menu', getPostsByMenuController);
 module.exports = router;

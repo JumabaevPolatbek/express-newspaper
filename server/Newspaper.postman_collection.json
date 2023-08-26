@@ -1,0 +1,509 @@
+{
+	"info": {
+		"_postman_id": "ab5bdcc0-ee3a-4ed8-8060-f38d83e81ebc",
+		"name": "Newspaper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25552863"
+	},
+	"item": [
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Add Post and bind menu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MjcwMjg1NiwiZXhwIjoxNjkyNzg5MjU2fQ.fDTXLlthnyJSt6WBhHtQNThFtVFx0lZWoZaC5U7SIEI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/post/post=1&menu=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"post=1&menu=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Post and bind category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MjcwMjg1NiwiZXhwIjoxNjkyNzg5MjU2fQ.fDTXLlthnyJSt6WBhHtQNThFtVFx0lZWoZaC5U7SIEI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "other_images",
+									"type": "file",
+									"src": "/C:/Users/50Cent/Pictures/Screenshots/Screenshot_20230214_061631.png"
+								},
+								{
+									"key": "other_images",
+									"type": "file",
+									"src": "/C:/Users/50Cent/Pictures/Screenshots/Screenshot_20230214_061602.png"
+								},
+								{
+									"key": "mainImage",
+									"type": "file",
+									"src": "/C:/Users/50Cent/Pictures/Screenshots/Снимок экрана 2023-03-06 092456.png"
+								},
+								{
+									"key": "title",
+									"value": "Our university",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Our university and students life",
+									"type": "text"
+								},
+								{
+									"key": "languageId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "meta_name",
+									"value": "name",
+									"type": "text"
+								},
+								{
+									"key": "meta_content",
+									"value": "Karakalpak state university and students life",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/post/category=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"category=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Posts and meta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/post/metas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"metas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/post/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/post/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/post/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get posts category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/post/category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts by Menu",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/post/menu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"menu"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Menu",
+			"item": [
+				{
+					"name": "Add Menu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MjY3OTEwMSwiZXhwIjoxNjkyNzY1NTAxfQ.kBXzyHIm9q7dSUqIQBuw7wfNJKMnPrWcxA3im5c3yPU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"title\":\"News\",\r\n    \"slug\":\"news\",\r\n    \"content\":\"proba\",\r\n    \"languageId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/menus/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"menus",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Menus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/menus/lang=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"menus",
+								"lang=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Menu By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/menus/menuId=1&langId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"menus",
+								"menuId=1&langId=1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Language",
+			"item": [
+				{
+					"name": "Add lang",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/language/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"language",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Submenu",
+			"item": [
+				{
+					"name": "Add submenu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MjY3OTEwMSwiZXhwIjoxNjkyNzY1NTAxfQ.kBXzyHIm9q7dSUqIQBuw7wfNJKMnPrWcxA3im5c3yPU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"our news\",\r\n    \"slug\":\"our news\",\r\n    \"content\":\"our news\",\r\n    \"languageId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/submenu/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"submenu",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submenu Bind to parent Menu",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Add Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MjY3OTEwMSwiZXhwIjoxNjkyNzY1NTAxfQ.kBXzyHIm9q7dSUqIQBuw7wfNJKMnPrWcxA3im5c3yPU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Categorys",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Add Users",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Admin\",\r\n    \"password\":\"Admin@12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

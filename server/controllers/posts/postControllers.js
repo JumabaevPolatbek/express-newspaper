@@ -6,7 +6,11 @@ const {
 	editPost,
 	deletePost,
 } = require('./actionsPost');
-const { getPosts, getPostsCategory } = require('./getPost');
+const {
+	getPosts,
+	getPostsCategory,
+	getPostsByMenu,
+} = require('./getPost');
 module.exports = {
 	addPostBindMenuController: async (req, res, next) => {
 		try {
@@ -101,7 +105,8 @@ module.exports = {
 	},
 	getPostsController: async (req, res) => {
 		try {
-			const result = await getPosts();
+			const language = req.get('Accept-Language');
+			const result = await getPosts(language);
 			return res.status(200).json(result);
 		} catch (e) {
 			console.log(e);
@@ -110,9 +115,19 @@ module.exports = {
 	},
 	getPostsCategoryController: async (req, res) => {
 		try {
-			const result = await getPostsCategory();
 			const language = req.get('Accept-Language');
-			return res.status(200).json(language);
+			const result = await getPostsCategory(language);
+			return res.status(200).json(result);
+		} catch (e) {
+			console.log(e);
+			return res.status(400).json(e);
+		}
+	},
+	getPostsByMenuController: async (req, res) => {
+		try {
+			const language = req.get('Accept-Language');
+			const result = await getPostsByMenu(language);
+			return res.status(200).json(result);
 		} catch (e) {
 			console.log(e);
 			return res.status(400).json(e);

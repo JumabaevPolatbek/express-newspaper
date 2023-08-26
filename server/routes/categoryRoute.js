@@ -2,6 +2,7 @@ const {
 	addCategoryController,
 	editCategoryController,
 	delCategoryController,
+	getCategorysController,
 } = require('../controllers/categories/categoryControllers');
 const adminMiddleware = require('../middleware/adminMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
@@ -28,4 +29,5 @@ router.delete(
 	adminMiddleware,
 	delCategoryController
 );
+router.get('/all', getCategorysController);
 module.exports = router;

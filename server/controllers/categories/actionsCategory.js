@@ -1,7 +1,7 @@
 const db = require('../../models/index');
 
 const categoryTable = db.category;
-
+const languageTable = db.languages;
 module.exports = {
 	addCategory: async (body) => {
 		try {
@@ -30,6 +30,26 @@ module.exports = {
 				{ ...body },
 				{ where: { id: categoryId } }
 			);
+		} catch (e) {
+			console.log(e);
+			return e;
+		}
+	},
+	getCategorys: async (language) => {
+		try {
+			const resultLang = await languageTable.findOne({
+				where: {
+					iso_639_code: language,
+				},
+			});
+			return await categoryTable.findAll({
+				where: {
+					languageId: resultLang.id,
+				},
+				attributes: {
+					exclude: ['languageId'],
+				},
+			});
 		} catch (e) {
 			console.log(e);
 			return e;
