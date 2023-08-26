@@ -2,7 +2,7 @@
 
 http://localhost:3000
 
-## API Reference, if can edit and delete, set headers 'Authorization':'Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MzAyNjY2NiwiZXhwIjoxNjkzMTEzMDY2fQ.7yo2TW490sLwdy36qQ984Ly5oQQQ7DybJ5jqI89tuR8'
+## API Reference
 
 ## Users
 
