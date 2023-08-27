@@ -1,9 +1,9 @@
-const { addSubmenuBindMenu, editSubmenuById, submenuBindParentMenu, delSubmenu} = require('./actionsSubmenu');
+const { addSubmenuMenu, editSubmenuById, submenuBindParentMenu, delSubmenu} = require('./actionsSubmenu');
 
 module.exports = {
     addSubmenuController: async (req, res) => {
         try {
-            const result = await addSubmenuBindMenu(req.body);
+            const result = await addSubmenuMenu(req.body);
             return res.status(200).json(result);
         } catch (error) {
             console.log(error);

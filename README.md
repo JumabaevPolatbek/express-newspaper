@@ -791,7 +791,7 @@ POST /post/category={categoryId}
 #### Create post and bind menu with access cms right
 
 ```http request
-POST /post/post={postId}&menu={menuId}&lang={languageId}
+POST /post/post={postId}&menu={menuId}&langId={languageId}
 ```
 
 <details>

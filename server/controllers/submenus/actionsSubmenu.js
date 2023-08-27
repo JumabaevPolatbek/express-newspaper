@@ -2,7 +2,7 @@ const submenuTable = require('../../models/index').submenu;
 const menuSubmenuLangTable =
 	require('../../models/index').menus_has_submenus_post_languages;
 module.exports = {
-	addSubmenuBindMenu: async (body) => {
+	addSubmenuMenu: async (body) => {
 		try {
 			return await submenuTable.create({
 				...body,

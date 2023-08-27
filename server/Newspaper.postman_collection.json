@@ -1,31 +1,76 @@
 {
 	"info": {
-		"_postman_id": "ab5bdcc0-ee3a-4ed8-8060-f38d83e81ebc",
+		"_postman_id": "203f65f1-3bc7-4c81-937a-f3a85560d0da",
 		"name": "Newspaper",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25552863"
+		"_exporter_id": "25293893"
 	},
 	"item": [
 		{
 			"name": "Post",
 			"item": [
 				{
-					"name": "Add Post and bind menu",
+					"name": "Add Post and bind category",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MjcwMjg1NiwiZXhwIjoxNjkyNzg5MjU2fQ.fDTXLlthnyJSt6WBhHtQNThFtVFx0lZWoZaC5U7SIEI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTY5MzE0NDUzOSwiZXhwIjoxNjkzMjMwOTM5fQ.t2e22mav-1XWJiw661AXW6a-xBfz_esNpd5TZF8Epxk",
 									"type": "string"
 								}
 							]
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Qaraqalpaqstan mádeniyati ",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Savetskiy atindag'i muzey ashiliwi",
+									"type": "text"
+								},
+								{
+									"key": "mainImage",
+									"type": "file",
+									"src": "/C:/Users/Polat/Pictures/1.jpeg"
+								},
+								{
+									"key": "other_images",
+									"type": "file",
+									"src": "/C:/Users/Polat/Pictures/photo_2021-02-16_12-12-14.jpg"
+								},
+								{
+									"key": "other_images",
+									"type": "file",
+									"src": "/C:/Users/Polat/Pictures/Снимок экрана 2022-04-29 100642.png"
+								},
+								{
+									"key": "languageId",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "meta_name",
+									"value": "keywords",
+									"type": "text"
+								},
+								{
+									"key": "meta_content",
+									"value": "Qaraqalpaqstan mádeniyati ",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "http://localhost:3000/post/post=1&menu=1",
+							"raw": "http://localhost:3000/post/category=6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -33,14 +78,14 @@
 							"port": "3000",
 							"path": [
 								"post",
-								"post=1&menu=1"
+								"category=6"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Add Post and bind category",
+					"name": "Post bind to menu",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -244,6 +289,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Post By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/post/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -328,6 +393,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Edit Menu",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/menu/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"menu",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -349,6 +434,46 @@
 							"path": [
 								"language",
 								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Language",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/language/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"language",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Language",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/language/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"language",
+								"1"
 							]
 						}
 					},
@@ -402,7 +527,50 @@
 					"name": "Submenu Bind to parent Menu",
 					"request": {
 						"method": "POST",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Submenu",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/submenu/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"submenu",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Submenu",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/submenu/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"submenu",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
@@ -460,6 +628,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Edit Category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -469,15 +677,108 @@
 				{
 					"name": "Add Users",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Image User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Image User Profile",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/image/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"image",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Sign In",
+			"name": "Sign In Admin",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -502,6 +803,22 @@
 						"signin"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign in Polat",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Sign in Nawriz",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}
