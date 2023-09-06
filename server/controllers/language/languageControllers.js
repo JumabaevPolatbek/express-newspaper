@@ -3,6 +3,7 @@ const {
     editLanguage,
     delLanguage,
     getLanguages,
+    getLanguage,
 } = require('./actionsLanguage');
 
 module.exports = {
@@ -48,4 +49,14 @@ module.exports = {
             return res.status(400).json(error);
         }
     },
+    getLanguageController:async(req,res)=>{
+        try{
+            const {languageId}=req.params
+            const {message,statusCode}=await getLanguage(languageId)
+            return res.status(statusCode).json({message:message})
+        }catch(e){
+            console.log(e)
+            return res.status(400).json({message:e})
+        }
+    }
 };

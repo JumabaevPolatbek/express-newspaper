@@ -5,6 +5,7 @@ const {
     editLanguageController,
     delLanguageController,
     getLanguagesController,
+    getLanguageController,
 } = require('../controllers/language/languageControllers');
 const router = require('express').Router();
 
@@ -22,4 +23,5 @@ router.delete(
     delLanguageController
 );
 router.get('/all', getLanguagesController);
+router.get('/:languageId',getLanguageController)
 module.exports = router;

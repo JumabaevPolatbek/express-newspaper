@@ -3,7 +3,7 @@ const languageTable = require('../../models/index').languages;
 module.exports = {
     getLanguage: async (languageId) => {
         try {
-            return await languageTable.findOne({
+            const result= await languageTable.findOne({
                 where: {
                     id: languageId,
                 },
@@ -11,9 +11,24 @@ module.exports = {
                     exclude: ['createdAt', 'updatedAt'],
                 },
             });
+            if(result!==null){
+                return {
+                    message:result,
+                    statusCode:200
+                }
+            }  else {
+                return {
+                    message:'There is no such language in the database',
+                    statusCode:203
+                }
+            }
+            
         } catch (error) {
             console.log(error);
-            return error;
+            return {
+                message:error.message,
+                statusCode:204
+            }
         }
     },
     getLanguages: async () => {

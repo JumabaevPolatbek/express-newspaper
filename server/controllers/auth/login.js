@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 			},
 		});
 		if (!result) {
-			return res.status(400).json({
+			return res.status(204).json({
 				message: username + ' user is not found',
 			});
 		}
@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 			result.password
 		);
 		if (!validPassword) {
-			return res.status(400).json({
+			return res.status(401).json({
 				message: 'Incorrect login or password',
 			});
 		}
