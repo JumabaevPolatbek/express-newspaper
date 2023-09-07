@@ -10,14 +10,15 @@ const {
 const { getUsers } = require('./getUsers');
 const path = require('path');
 const fs = require('fs');
+const validationError = require('../../services/validationError');
 module.exports = {
 	addUserController: async (req, res) => {
 		try {
-			const result = await addUser(req.body);
-			return res.status(200).json(result);
+			const {message,statusCode,errors} = await addUser(req.body);
+			return res.status(statusCode).json({message:message,errors:errors});
 		} catch (error) {
-			console.log(error);
-			return res.status(400).json({ message: error });
+			const {statusCode,message,errors}=validationError(error)
+			return res.status(statusCode).json({message:message,errors:errors})
 		}
 	},
 	addUserToGroupController: async (req, res) => {

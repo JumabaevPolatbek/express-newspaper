@@ -2,6 +2,7 @@ const generateToken = require('../../services/generateToken');
 const {
 	compareSync,
 } = require('../../services/hashPassword');
+const validationError = require('../../services/validationError');
 
 const user = require('../../models/index').users_table;
 module.exports = async (req, res) => {
@@ -9,7 +10,7 @@ module.exports = async (req, res) => {
 		const { username, password } = req.body;
 		const result = await user.findOne({
 			where: {
-				username: username,
+				username: username.toLowerCase(),
 			},
 		});
 		if (!result) {
@@ -29,7 +30,7 @@ module.exports = async (req, res) => {
 		const token = generateToken(result.id);
 		return res.status(200).json({ token: token });
 	} catch (error) {
-		console.log(error);
-		return res.status(400).json({ message: error });
+		const {message,statusCode}= validationError(error)
+		return res.status(statusCode).json(message)
 	}
 };
