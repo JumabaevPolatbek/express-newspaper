@@ -57,7 +57,18 @@ module.exports = (sequelize, DataTypes) => {
     }
     languages.init(
         {
-            name: DataTypes.STRING,
+            name: {
+                type:DataTypes.STRING,
+                allowNull:false,
+                validate:{
+                    isLetterOnly:(value)=>{
+                        const lettersRegex = /^[\p{L}]+$/u;
+                        if (!lettersRegex.test(value)) {
+                            throw new Error('Name must contain only letters.');
+                        }
+                    }
+                },
+            },
             country: DataTypes.STRING,
             iso_639_code: DataTypes.STRING,
         },
