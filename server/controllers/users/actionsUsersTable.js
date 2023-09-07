@@ -5,6 +5,7 @@ const permissionsTable = require("../../models/index").permissions;
 const usersGroup = require("../../models/index").users_has_groups;
 const usersHasPermission = require("../../models/index").users_has_permissions;
 const imagesTable = require("../../models/index").images;
+const fs=require('fs')
 module.exports = {
   addUser: async (body) => {
     try {
@@ -56,43 +57,23 @@ module.exports = {
           userId: userId,
         },
       });
-      if (!!result) {
-        await permissionsTable.destroy({
-          where: {
-            id: result.permissionId,
-          },
-        });
+      if(result!==null){
+        await usersTable.destroy({
+          where:{
+            id:userId
+          }
+        })
         return {
-          message: result.username + " has removed",
-          statusCode: 200,
-        };
-      } else {
-        return {
-          message: "User with this id does not exist",
-          statusCode: 401,
-        };
+          message:result.username+' has removed',
+          statusCode:200
+        }
+      }
+      return {
+        message:'User with this id does not exist',
+        statusCode:401
       }
     } catch (error) {
-      if (error.name === 'SequelizeValidationError') {
-        // Handle validation errors
-        const validationErrors = error.errors.map((err) => ({
-          field: err.path,
-          message: err.message,
-        }));
-        console.log('Validation errors:', validationErrors);
-        return {
-          message: 'Validation errors',
-          errors: validationErrors,
-          statusCode: 400,
-        };
-      } else {
-        // Handle other errors
-        console.error('Error:', error);
-        return {
-          message: error.message,
-          statusCode: 500,
-        };
-      }
+     return validationError(error)
     }
   },
   editUser: async (userId, body) => {
@@ -118,13 +99,22 @@ module.exports = {
         name: resultUser.username,
         path: pathImage,
       });
-      return await usersTable.update(
+      const result= await usersTable.update(
         { imageId: imageResult.id },
         { where: { id: userId } }
       );
+      return {
+        message:result,
+        statusCode:200
+      }
     } catch (error) {
-      console.log(error);
-      return error;
+      const {message,statusCode,errors}=validationError(error)
+      fs.unlinkSync(pathImage)
+      return {
+        message:message,
+        statusCode:statusCode,
+        errors:errors
+      }
     }
   },
   deleteImage: async (imageId) => {

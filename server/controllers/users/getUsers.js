@@ -5,10 +5,11 @@ const usersTable =
 const permissions =
 	require('../../models/index').permissions;
 const { Op } = require('sequelize');
+const validationError = require('../../services/validationError');
 module.exports = {
 	getUsers: async () => {
 		try {
-			return await usersPermissionsTable.findAll({
+			const result= await usersPermissionsTable.findAll({
 				where: {
 					id: {
 						[Op.not]: [1],
@@ -36,9 +37,18 @@ module.exports = {
 					exclude: ['userId', 'permissionId'],
 				},
 			});
+			return {
+				message:result,
+				statusCode:200
+			}
 		} catch (error) {
 			console.log(error);
-			return error;
+			const {message,statusCode,errors}=validationError(error)
+			return {
+				message:message,
+				statusCode:statusCode,
+				errors:errors
+			}
 		}
 	},
 };
