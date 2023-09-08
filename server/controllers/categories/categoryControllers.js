@@ -1,3 +1,4 @@
+const validationError = require('../../services/validationError');
 const {
 	addCategory,
 	deleteCategory,
@@ -8,18 +9,21 @@ const {
 module.exports = {
 	addCategoryController: async (req, res) => {
 		try {
-			const result = await addCategory(req.body);
-			return res.status(200).json(result);
+			const { statusCode, message } = await addCategory(req.body);
+			return res.status(statusCode).json({ message: message });
 		} catch (e) {
 			console.log(e);
-			return res.status(200).json(e);
+			const { statusCode, message, errors } = validationError(e);
+			return res
+				.status(statusCode)
+				.json({ message: message, errors: errors });
 		}
 	},
 	delCategoryController: async (req, res) => {
 		try {
 			const { categoryId } = req.params;
-			const result = await deleteCategory(categoryId);
-			return res.status(200).json(result);
+			const { statusCode, message } = await deleteCategory(categoryId);
+			return res.status(statusCode).json({ message: message });
 		} catch (e) {
 			console.log(e);
 			return res.status(400).json(e);
@@ -28,24 +32,30 @@ module.exports = {
 	editCategoryController: async (req, res) => {
 		try {
 			const { categoryId } = req.params;
-			const result = await editCategory(
+			const { statusCode, message } = await editCategory(
 				categoryId,
 				req.body
 			);
-			return res.status(200).json(result);
+			return res.status(statusCode).json({ message: message });
 		} catch (e) {
 			console.log(e);
-			return res.status(400).json(e);
+			const { statusCode, message, errors } = validationError(e);
+			return res
+				.status(statusCode)
+				.json({ message: message, errors: errors });
 		}
 	},
 	getCategorysController: async (req, res) => {
 		try {
 			const language = req.get('Accept-Language');
-			const result = await getCategorys(language);
-			return res.status(200).json(result);
+			const { statusCode, message } = await getCategorys(language);
+			return res.status(statusCode).json({ message: message });
 		} catch (e) {
 			console.log(e);
-			return res.status(400).json(e);
+			const { statusCode, errors, message } = validationError(e);
+			return res
+				.status(statusCode)
+				.json({ message: message, errors: errors });
 		}
 	},
 };
