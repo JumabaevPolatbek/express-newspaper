@@ -1,42 +1,42 @@
 const submenuTable = require('../../models/index').submenu;
 const menuSubmenuLangTable =
 	require('../../models/index').menus_has_submenus_post_languages;
+const validationError = require('../../services/validationError');
 module.exports = {
 	addSubmenuMenu: async (body) => {
 		try {
-			return await submenuTable.create({
+			const result = await submenuTable.create({
 				...body,
 			});
+			return {
+				statusCode: 200,
+				message: result,
+			};
 		} catch (error) {
 			console.log(error);
-			return error;
+			return validationError(error);
 		}
 	},
 	editSubmenuById: async (submenuId, body) => {
 		try {
-			const { submenu, parentMenuId, languageId } =
-				body;
-			await submenuTable.update(
-				{ ...submenu },
-				{ where: { id: submenuId } }
-			);
-			return await menuSubmenuLangTable.update(
-				{
-					menuId: parentMenuId,
-					languageId: languageId,
-				},
-				{ where: { submenuId: submenuId } }
-			);
+			const resultFind = await submenuTable.findOne({
+				where: { id: submenuId },
+			});
+			if (resultFind !== null) {
+				await submenuTable.update(
+					{ ...body },
+					{ where: { id: submenuId } }
+				);
+				return;
+			}
+
+			return;
 		} catch (error) {
 			console.log(error);
 			return error;
 		}
 	},
-	submenuBindParentMenu: async ({
-		submenuId,
-		langId,
-		parentMenuId,
-	}) => {
+	submenuBindParentMenu: async ({ submenuId, langId, parentMenuId }) => {
 		try {
 			return await menuSubmenuLangTable.create({
 				menuId: parentMenuId,

@@ -69,7 +69,16 @@ module.exports = (sequelize, DataTypes) => {
                     }
                 },
             },
-            country: DataTypes.STRING,
+            country:{
+                type:DataTypes.STRING,
+                allowNull:false,
+                validate:{
+                    is:{
+                        args:[a-zA-Z],
+                        msg:'Only english letters'
+                    }
+                }
+            },
             iso_639_code: DataTypes.STRING,
         },
         {

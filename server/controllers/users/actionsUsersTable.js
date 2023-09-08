@@ -78,14 +78,25 @@ module.exports = {
   },
   editUser: async (userId, body) => {
     try {
-      return await usersTable.update(
-        { ...body },
-        {
-          where: {
-            id: userId,
-          },
+      const resultFind=await usersTable.findOne({where:{id:userId}})
+      if(resultFind!==null){
+        await usersTable.update(
+          { ...body },
+          {
+            where: {
+              id: userId,
+            },
+          }
+        );
+        return {
+          statusCode:200,
+          message:resultFind.username+' has updated'
         }
-      );
+      }
+      return {
+        statusCode:401,
+        message:'User with this id does not exist',
+      }
     } catch(error){
       return validationError(error)
     }
@@ -119,14 +130,25 @@ module.exports = {
   },
   deleteImage: async (imageId) => {
     try {
-      return await imagesTable.destroy({
-        where: {
-          id: imageId,
-        },
-      });
+      const findImage=await imagesTable.findOne({where:{id:imageId}})
+      if(findImage!==null){
+        await imagesTable.destroy({
+          where: {
+            id: imageId,
+          },
+        });
+        return {
+          statusCode:200,
+          message:'Image has removed'
+        }
+      }
+      return {
+        statusCode:401,
+        message:'Image with this id does not exist'
+      }
     } catch (error) {
       console.log(error);
-      return error;
+      return validationError(error);
     }
   },
 };

@@ -36,8 +36,8 @@ module.exports = {
 	},
 	getUsersController: async (req, res) => {
 		try {
-			const result = await getUsers();
-			res.status(200).json(result);
+			const {statusCode,message} = await getUsers();
+			res.status(statusCode).json({message:message});
 		} catch (error) {
 			console.log(error);
 			const {message,statusCode,errors}=validationError(error)
@@ -59,14 +59,14 @@ module.exports = {
 	editUserController: async (req, res) => {
 		try {
 			const { userId } = req.params;
-			await editUser(userId, req.body);
-			res.status(200).json({
-				message: 'Success',
+			const {statusCode,message } = await editUser(userId, req.body);
+			res.status(statusCode).json({
+				message: message,
 			});
 		} catch (error) {
-			fs.unlinkSync(req.file.path);
 			console.log(error);
-			return res.status(400).json({ message: error });
+			const {statusCode,message,errors}=validationError(error)
+			return res.status(statusCode).json({ message: message,errors:errors });
 		}
 	},
 	imageUploadController: async (req, res) => {
@@ -97,13 +97,14 @@ module.exports = {
 	delImageController: async (req, res) => {
 		try {
 			const { imageId } = req.params;
-			// const = await deleteImage(imageId);
-			res.status(200).json({
-				message: 'Success',
+			const {statusCode,message}= await deleteImage(imageId);
+			res.status(statusCode).json({
+				message: message,
 			});
 		} catch (error) {
 			console.log(error);
-			res.status(400).json(error);
+			const {statusCode,message,errors}=validationError(error)
+			return res.status(statusCode).json({message:message,errors:errors})
 		}
 	},
 };

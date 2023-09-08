@@ -1,3 +1,4 @@
+const validationError = require('../../services/validationError');
 const {
     addLanguage,
     editLanguage,
@@ -9,44 +10,48 @@ const {
 module.exports = {
     addLanguageController: async (req, res) => {
         try {
-            const result = await addLanguage(req.body);
-            return res.status(200).json(result);
+            const {statusCode,message} = await addLanguage(req.body);
+            return res.status(statusCode).json({message:message});
         } catch (error) {
             console.log(error);
-            return res.status(400).json(error);
+            const {statusCode,message,errors}=validationError(error)
+            return res.status(statusCode).json({message:message,errors:errors})
         }
     },
     editLanguageController: async (req, res) => {
         try {
             const { languageId } = req.params;
-            await editLanguage(languageId, req.body);
-            return res.status(200).json({
-                message: req.body.name + ' success edit',
+            const {statusCode,message} = await editLanguage(languageId, req.body);
+            return res.status(statusCode).json({
+                message:message,
             });
         } catch (error) {
             console.log(error);
-            return res.status(400).json(error);
+            const {statusCode,message,errors}=validationError(error)
+            return res.status(statusCode).json({message:message,errors:errors});
         }
     },
     delLanguageController: async (req, res) => {
         try {
             const { languageId } = req.params;
-            await delLanguage(languageId);
-            return res.status(200).json({
-                message: 'Selected language successfully removed',
+            const {statusCode,message} = await delLanguage(languageId);
+            return res.status(statusCode).json({
+                message: message,
             });
         } catch (error) {
             console.log(error);
-            return res.status(400).json(error);
+            const {statusCode,message,errors}=validationError(error)
+            return res.status(statusCode).json({message:message,errors:errors});
         }
     },
     getLanguagesController: async (req, res) => {
         try {
-            const result = await getLanguages();
-            return res.status(200).json(result);
+            const {statusCode,message} = await getLanguages();
+            return res.status(statusCode).json({message:message});
         } catch (error) {
             console.log(error);
-            return res.status(400).json(error);
+            const {statusCode,message,errors}=validationError(error)
+            return res.status(statusCode).json({message:message,errors:errors})
         }
     },
     getLanguageController:async(req,res)=>{
@@ -55,8 +60,8 @@ module.exports = {
             const {message,statusCode}=await getLanguage(languageId)
             return res.status(statusCode).json({message:message})
         }catch(e){
-            console.log(e)
-            return res.status(400).json({message:e})
+            const {statusCode,message,errors}=validationError(e)
+            return res.status(statusCode).json({message:message,errors:errors})
         }
     }
 };
