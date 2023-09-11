@@ -8,6 +8,8 @@ const menusRouter = require('./routes/menusRoute');
 const submenuRouter = require('./routes/submenuRoute');
 const postRouter = require('./routes/postRoute');
 const categoryRouter = require('./routes/categoryRoute');
+const cors = require('cors');
+app.use(cors({ origin: true }));
 app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/group', groupRouter);
@@ -19,9 +21,7 @@ app.use('/post', postRouter);
 app.use('/category', categoryRouter);
 const start = async () => {
 	try {
-		app.listen(3000, () =>
-			console.log('Server is running')
-		);
+		app.listen(5000, () => console.log('Server is running 5000'));
 	} catch (error) {
 		console.log(error);
 	}
