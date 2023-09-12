@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { useLogin, useNotify, Notification } from "react-admin";
 function Copyright(props: any) {
   return (
     <Typography
@@ -35,13 +35,19 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const login = useLogin();
+  const notify = useNotify();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      username: data.get("email"),
+      username: data.get("username"),
       password: data.get("password"),
     });
+    login({
+      username: data.get("username"),
+      password: data.get("password"),
+    }).catch((error) => notify(error.response.data.message));
   };
 
   return (
@@ -100,7 +106,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
@@ -111,7 +117,7 @@ export default function SignIn() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
