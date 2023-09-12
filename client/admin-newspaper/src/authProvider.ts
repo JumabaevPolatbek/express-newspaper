@@ -10,7 +10,7 @@ export const authProvider: AuthProvider = {
   login: async ({ username, password }) => {
     await axios
       .post<Login, any>(
-        "http://localhost:5000/auth/signin",
+        "http://195.158.22.198:5000/auth/signin",
         { username, password },
         { headers: { "Content-Type": "application/json" } }
       )
