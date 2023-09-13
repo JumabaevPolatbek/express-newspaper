@@ -89,7 +89,7 @@ const customDataProvider: DataProvider = {
         body: JSON.stringify(params.data),
       });
       const data = await request.json();
-      console.log(data);
+
       return {
         data: data.message,
       };

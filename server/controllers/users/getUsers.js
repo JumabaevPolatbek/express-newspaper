@@ -1,54 +1,55 @@
 const usersPermissionsTable =
 	require('../../models/index').users_has_permissions;
-const usersTable =
-	require('../../models/index').users_table;
-const permissions =
-	require('../../models/index').permissions;
+const usersTable = require('../../models/index').users_table;
+const permissions = require('../../models/index').permissions;
 const { Op } = require('sequelize');
 const validationError = require('../../services/validationError');
+const imageTable = require('../../models/index').images;
 module.exports = {
 	getUsers: async () => {
 		try {
-			const result= await usersPermissionsTable.findAll({
+			const result = await usersTable.findAll({
 				where: {
 					id: {
 						[Op.not]: [1],
 					},
 				},
-				include: {
-					model: usersTable,
-					as: 'user',
-					attributes: {
-						exclude: ['password'],
+				include: [
+					{
+						model: imageTable,
 					},
-					include: {
+					{
 						model: permissions,
 						as: 'permissions',
 						through: {
 							attributes: [],
 						},
 						attributes: {
-							exclude: ['is_owner'],
+							exclude: [
+								'id',
+								'is_owner',
+								'createdAt',
+								'updatedAt',
+							],
 						},
 					},
-				},
-
+				],
 				attributes: {
-					exclude: ['userId', 'permissionId'],
+					exclude: ['password', 'imageId'],
 				},
 			});
 			return {
-				message:result,
-				statusCode:200
-			}
+				message: result,
+				statusCode: 200,
+			};
 		} catch (error) {
 			console.log(error);
-			const {message,statusCode,errors}=validationError(error)
+			const { message, statusCode, errors } = validationError(error);
 			return {
-				message:message,
-				statusCode:statusCode,
-				errors:errors
-			}
+				message: message,
+				statusCode: statusCode,
+				errors: errors,
+			};
 		}
 	},
 };
