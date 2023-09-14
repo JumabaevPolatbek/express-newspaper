@@ -1,24 +1,23 @@
 const jwt = require('jsonwebtoken');
 const secretKey = 'my-secret-key';
 const usersTable = require('../models/index').users_table;
-const permissionsTable =
-	require('../models/index').permissions;
+const permissionsTable = require('../models/index').permissions;
 module.exports = async (req, res, next) => {
 	if (req.method === 'OPTIONS') {
 		next();
 	}
 	try {
-		const token =
-			req.headers.authorization.split(' ')[1];
+		const token = req.headers.authorization.split(' ')[1];
 		if (!token) {
 			return res.status(400).json({
 				message: 'User is not authorized',
 			});
 		}
-		const { userId } = jwt.verify(token, secretKey);
+		const { dataValues } = jwt.verify(token, secretKey);
+		const { id } = dataValues;
 		const result = await usersTable.findOne({
 			where: {
-				id: userId,
+				id: id,
 			},
 			include: {
 				model: permissionsTable,
@@ -38,8 +37,6 @@ module.exports = async (req, res, next) => {
 		next();
 	} catch (error) {
 		console.log(error);
-		return res
-			.status(400)
-			.json({ message: 'User is not authorized' });
+		return res.status(400).json({ message: 'User is not authorized' });
 	}
 };

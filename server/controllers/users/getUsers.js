@@ -52,4 +52,48 @@ module.exports = {
 			};
 		}
 	},
+	getUser: async (userId) => {
+		try {
+			const resultFind = await usersTable.findOne({
+				where: {
+					id: userId,
+				},
+				include: [
+					{
+						model: imageTable,
+					},
+					{
+						model: permissions,
+						as: 'permissions',
+						through: {
+							attributes: [],
+						},
+						attributes: {
+							exclude: [
+								'id',
+								'is_owner',
+								'createdAt',
+								'updatedAt',
+							],
+						},
+					},
+				],
+				attributes: {
+					exclude: ['password', 'imageId'],
+				},
+			});
+			return {
+				statusCode: 200,
+				message: resultFind,
+			};
+		} catch (error) {
+			console.log(error);
+			const { message, statusCode, errors } = validationError(error);
+			return {
+				message: message,
+				statusCode: statusCode,
+				errors: errors,
+			};
+		}
+	},
 };
