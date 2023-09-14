@@ -1,14 +1,14 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'react-admin';
-
+import { Cookies } from 'react-cookie';
+import axios from 'axios';
 const api = 'http://195.158.22.198:5000/auth/sign';
-
+const cookie = new Cookies();
 const customAuthProvider = {
-	login: ({ username, password }) => {
-		if (username !== 'john' || password !== '123') {
-			return Promise.reject();
-		}
-		localStorage.setItem('username', username);
-		return Promise.resolve();
+	login: async ({ username, password }) => {
+		const response = await axios.post(
+			api,
+			JSON.stringify({ username: username, password: password })
+		);
+		console.log(response);
 	},
 	logout: () => {
 		localStorage.removeItem('username');

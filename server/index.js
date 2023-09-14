@@ -9,7 +9,7 @@ const submenuRouter = require('./routes/submenuRoute');
 const postRouter = require('./routes/postRoute');
 const categoryRouter = require('./routes/categoryRoute');
 const cors = require('cors');
-app.use(cors({ origin: true }));
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/group', groupRouter);
