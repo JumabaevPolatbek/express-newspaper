@@ -1,21 +1,30 @@
 import { Cookies } from 'react-cookie';
 import axios from 'axios';
-const api = 'http://195.158.22.198:5000/auth/sign';
+const api = 'http://195.158.22.198:5000/auth/signin';
 const cookie = new Cookies();
 const customAuthProvider = {
 	login: async ({ username, password }) => {
-		const response = await axios.post(
-			api,
-			JSON.stringify({ username: username, password: password })
-		);
-		console.log(response);
+		try {
+			const response = await axios.post(api, {
+				username: username,
+				password: password,
+			});
+			const token = response.data.token;
+			if (!token) {
+				throw new Error('Erorr');
+			}
+			cookie.set('token', token);
+			return Promise.resolve();
+		} catch (error) {
+			return Promise.reject();
+		}
 	},
 	logout: () => {
 		localStorage.removeItem('username');
 		return Promise.resolve();
 	},
 	checkAuth: () =>
-		localStorage.getItem('username') ? Promise.resolve() : Promise.reject(),
+		cookie.get('token') ? Promise.resolve() : Promise.reject(),
 	checkError: (error) => {
 		const status = error.status;
 		if (status === 401 || status === 403) {
@@ -28,7 +37,7 @@ const customAuthProvider = {
 	getIdentity: () =>
 		Promise.resolve({
 			id: 'user',
-			fullName: 'John Doe',
+			fullName: 'Admin',
 		}),
 	getPermissions: () => Promise.resolve(''),
 };
