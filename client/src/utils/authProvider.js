@@ -48,7 +48,7 @@ const customAuthProvider = {
 		const { dataValues } = decode(token);
 
 		return axios
-			.get(`http://195.158.22.198/users/${dataValues.id}`, {
+			.get(`http://195.158.22.198:5000/users/${dataValues.id}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			})
 			.then((response) =>
