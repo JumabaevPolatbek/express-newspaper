@@ -3,7 +3,7 @@ import customAuthProvider from './utils/authProvider';
 import SignIn from './components/SignIn';
 import Dashboard from './components/Dashboard';
 import customDataProvider from './utils/dataProvider';
-import users from './components/users';
+import users from './components/Users';
 import languages from './components/languages';
 const App = () => {
 	return (
