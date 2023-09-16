@@ -6,13 +6,10 @@ const cookie = new Cookies();
 const customAuthProvider = {
 	login: async ({ username, password }) => {
 		try {
-			const response = await axios.post(
-				'http://localhost:5000/auth/signin',
-				{
-					username: username,
-					password: password,
-				}
-			);
+			const response = await axios.post(api, {
+				username: username,
+				password: password,
+			});
 			const token = response.data.token;
 			if (!token) {
 				throw new Error('Erorr');
@@ -51,7 +48,7 @@ const customAuthProvider = {
 		const { dataValues } = decode(token);
 
 		return axios
-			.get(`http://localhost:5000/users/${dataValues.id}`, {
+			.get(`http://195.158.22.198:5000/users/${dataValues.id}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			})
 			.then((response) =>

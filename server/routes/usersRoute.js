@@ -14,7 +14,7 @@ const uplodImage = require('../middleware/uploadImage');
 const router = require('express').Router();
 
 //create user with admin
-router.post('/add', authMiddleware, adminMiddleware, addUserController);
+router.post('/create', authMiddleware, adminMiddleware, addUserController);
 router.get('/', authMiddleware, adminMiddleware, getUsersController);
 router.post(
 	'/group',

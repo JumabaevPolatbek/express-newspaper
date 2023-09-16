@@ -9,14 +9,9 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 const router = require('express').Router();
 
-router.post(
-	'/add',
-	authMiddleware,
-	adminMiddleware,
-	addCategoryController
-);
+router.post('/add', authMiddleware, adminMiddleware, addCategoryController);
 
-router.put(
+router.patch(
 	'/:categoryId',
 	authMiddleware,
 	adminMiddleware,

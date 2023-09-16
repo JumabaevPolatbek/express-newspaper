@@ -64,10 +64,15 @@ module.exports = {
 	editUserController: async (req, res) => {
 		try {
 			const { userId } = req.params;
-			const { statusCode, message } = await editUser(userId, req.body);
+			const { statusCode, message } = await editUser(
+				userId,
+				req.body.data
+			);
 			res.status(statusCode).json({
 				message: message,
 			});
+			// console.log(req.params);
+			// console.log(req.body.data);
 		} catch (error) {
 			console.log(error);
 			const { statusCode, message, errors } = validationError(error);

@@ -1,10 +1,9 @@
 import { Admin, Resource } from 'react-admin';
 import customAuthProvider from './utils/authProvider';
 import SignIn from './components/SignIn';
-import { Dashboard } from '@mui/icons-material';
-import { UserList } from './components/Users/List';
+import Dashboard from './components/Dashboard';
 import customDataProvider from './utils/dataProvider';
-import { UserEdit } from './components/Users/EditUser';
+import Users from './components/Users';
 const App = () => {
 	return (
 		<Admin
@@ -13,7 +12,7 @@ const App = () => {
 			loginPage={SignIn}
 			dashboard={Dashboard}
 		>
-			<Resource name="users" list={UserList} edit={UserEdit} />
+			<Resource name="users" {...Users} />
 		</Admin>
 	);
 };
