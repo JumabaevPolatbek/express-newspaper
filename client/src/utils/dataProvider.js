@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-const api = 'http://195.158.22.198:5000';
+const api = 'http://localhost:5000';
 const cookie = new Cookies();
 const customDataProvider = {
 	getList: async (resource, params) => {
@@ -71,10 +69,13 @@ const customDataProvider = {
 				headers: { Authorization: `Bearer ${cookie.get('token')}` },
 			});
 			return {
-				data: response.message,
+				data: response.data.message,
 			};
 		} catch (error) {
-			throw new Error('Error sending data ....');
+			const {
+				response: { data },
+			} = error;
+			throw new Error(data.errors[0].message);
 		}
 	},
 	delete: async (resource, params) => {

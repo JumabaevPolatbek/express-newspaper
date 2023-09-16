@@ -3,7 +3,8 @@ import customAuthProvider from './utils/authProvider';
 import SignIn from './components/SignIn';
 import Dashboard from './components/Dashboard';
 import customDataProvider from './utils/dataProvider';
-import Users from './components/Users';
+import users from './components/users';
+import languages from './components/languages';
 const App = () => {
 	return (
 		<Admin
@@ -12,7 +13,8 @@ const App = () => {
 			loginPage={SignIn}
 			dashboard={Dashboard}
 		>
-			<Resource name="users" {...Users} />
+			<Resource name="users" {...users} />
+			<Resource name="language" {...languages} />
 		</Admin>
 	);
 };

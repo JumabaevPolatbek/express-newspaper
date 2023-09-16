@@ -9,12 +9,23 @@ const fs = require('fs');
 module.exports = {
 	addUser: async (body) => {
 		try {
-			const { username, password, email, permissions } = body;
+			const {
+				username,
+				password,
+				email,
+				permissions,
+				first_name,
+				last_name,
+				info,
+			} = body.data;
 
 			const createdUser = await usersTable.create({
 				username: username,
 				password: hashPassword(password),
 				email: email,
+				first_name: first_name,
+				last_name: last_name,
+				info: info,
 			});
 
 			const createdPermissions = await permissionsTable.create({
@@ -27,7 +38,7 @@ module.exports = {
 			});
 
 			return {
-				message: 'User added successfully',
+				message: createdUser,
 				statusCode: 200,
 			};
 		} catch (error) {
