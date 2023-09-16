@@ -1,7 +1,7 @@
 import { Cookies } from 'react-cookie';
 import decode from './decode';
 import axios from 'axios';
-const api = 'http://195.158.22.198:5000/auth/signin';
+const api = 'https://195.158.22.198:5000/auth/signin';
 const cookie = new Cookies();
 const customAuthProvider = {
 	login: async ({ username, password }) => {
@@ -48,7 +48,7 @@ const customAuthProvider = {
 		const { dataValues } = decode(token);
 
 		return axios
-			.get(`http://195.158.22.198:5000/users/${dataValues.id}`, {
+			.get(`https://195.158.22.198:5000/users/${dataValues.id}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			})
 			.then((response) =>
