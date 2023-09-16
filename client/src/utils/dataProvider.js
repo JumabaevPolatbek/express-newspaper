@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-const api = 'http://localhost:5000';
+const api = 'http://195.158.22.198:5000/';
 const cookie = new Cookies();
 const customDataProvider = {
 	getList: async (resource, params) => {
-		const url = api + '/' + resource;
+		const url = api + resource;
 
 		try {
 			const resp = await axios.get(url, {
@@ -19,7 +19,7 @@ const customDataProvider = {
 		}
 	},
 	getOne: async (resource, params) => {
-		const url = 'http://localhost:5000/' + resource + `/${params.id}`;
+		const url = api + resource + `/${params.id}`;
 		try {
 			const response = await axios.get(url, {
 				headers: { Authorization: `Bearer ${cookie.get('token')}` },
@@ -32,7 +32,7 @@ const customDataProvider = {
 		}
 	},
 	getManyReferences: async (resource, params) => {
-		const url = 'http://localhost:5000/' + resource + `/${params.id}`;
+		const url = api + resource + `/${params.id}`;
 		try {
 			const response = await axios.get(url, {
 				headers: { Authorization: `Bearer ${cookie.get('token')}` },
@@ -45,7 +45,7 @@ const customDataProvider = {
 		}
 	},
 	update: async (resource, params) => {
-		const url = 'http://localhost:5000/' + resource + `/${params.id}`;
+		const url = api + resource + `/${params.id}`;
 		try {
 			// return console.log(params);
 			const respons = await axios.patch(
@@ -63,7 +63,7 @@ const customDataProvider = {
 		}
 	},
 	create: async (resource, params) => {
-		const url = `http://localhost:5000/${resource}/create`;
+		const url = `${api}${resource}/create`;
 		try {
 			const response = await axios.post(url, params, {
 				headers: { Authorization: `Bearer ${cookie.get('token')}` },
@@ -79,7 +79,7 @@ const customDataProvider = {
 		}
 	},
 	delete: async (resource, params) => {
-		const url = `http://localhost:5000/${resource}/${params.id}`;
+		const url = `${api}${resource}/${params.id}`;
 		try {
 			const response = await axios.delete(url, {
 				headers: { Authorization: `Beaer ${cookie.get('token')}` },

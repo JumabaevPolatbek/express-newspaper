@@ -3,8 +3,8 @@ import customAuthProvider from './utils/authProvider';
 import SignIn from './components/SignIn';
 import Dashboard from './components/Dashboard';
 import customDataProvider from './utils/dataProvider';
-import users from './components/users';
 import languages from './components/languages';
+import users from './components/users';
 const App = () => {
 	return (
 		<Admin
