@@ -72,30 +72,53 @@ module.exports = {
 	},
 	getCategorys: async (language) => {
 		try {
-			const resultLang = await languageTable.findOne({
+			// const resultLang = await languageTable.findOne({
+			// 	where: {
+			// 		iso_639_code: language,
+			// 	},
+			// });
+			// if (resultLang !== null) {
+			const result = await categoryTable.findAll({
+				// where: {
+				// 	languageId: resultLang.id,
+				// },
+				// attributes: {
+				// 	exclude: ['languageId'],
+				// },
+			});
+			return {
+				statusCode: 200,
+				message: result,
+			};
+			// }
+			// return {
+			// 	statusCode: 401,
+			// 	message: 'There is no category in this language',
+			// };
+		} catch (e) {
+			console.log(e);
+			return validationError(e);
+		}
+	},
+	getCategoryById: async (categoryId) => {
+		try {
+			const result = await categoryTable.findOne({
 				where: {
-					iso_639_code: language,
+					id: categoryId,
 				},
 			});
-			if (resultLang !== null) {
-				const result = await categoryTable.findAll({
-					where: {
-						languageId: resultLang.id,
-					},
-					attributes: {
-						exclude: ['languageId'],
-					},
-				});
+			if (result !== null) {
 				return {
 					statusCode: 200,
 					message: result,
 				};
+			} else {
+				return {
+					statusCode: 401,
+					message: 'Category whis this id not exists ',
+				};
 			}
-			return {
-				statusCode: 401,
-				message: 'There is no category in this language',
-			};
-		} catch (e) {
+		} catch (error) {
 			console.log(e);
 			return validationError(e);
 		}

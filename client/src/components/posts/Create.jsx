@@ -7,17 +7,16 @@ import {
 	AutocompleteInput,
 	required,
 } from 'react-admin';
-export const CreateMenu = () => (
+export const CreatePost = () => (
 	<Create>
 		<SimpleForm>
 			<TextInput
-				source="title"
-				title="Menu name"
+				source="name"
+				title="Category name"
 				fullWidth
 				validate={required()}
 			/>
-			<TextInput source="slug" />
-			<TextInput source="content" />
+			<TextInput source="url" />
 			<ReferenceInput
 				source="languageId"
 				reference="language"

@@ -8,7 +8,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const adminMiddleware = require('../middleware/adminMiddleware');
 const router = require('express').Router();
 
-router.post('/add', authMiddleware, adminMiddleware, addSubmenuController);
+router.post('/create', authMiddleware, adminMiddleware, addSubmenuController);
 
 router.patch(
 	'/:submenuId',

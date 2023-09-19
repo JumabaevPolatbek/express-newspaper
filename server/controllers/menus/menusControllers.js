@@ -10,7 +10,9 @@ const {
 module.exports = {
 	addMenuController: async (req, res) => {
 		try {
-			const { statusCode, message } = await addMenuHasLanguage(req.body);
+			const { statusCode, message } = await addMenuHasLanguage(
+				req.body.data
+			);
 			return res.status(statusCode).json({ message: message });
 		} catch (error) {
 			console.log(error);
@@ -48,8 +50,8 @@ module.exports = {
 	},
 	getMenusController: async (req, res) => {
 		try {
-			const { languageId } = req.params;
-			const { statusCode, message } = await getMenus(languageId);
+			// const { languageId } = req.params;
+			const { statusCode, message } = await getMenus();
 			return res.status(statusCode).json({ message: message });
 		} catch (e) {
 			console.log(e);
@@ -61,11 +63,8 @@ module.exports = {
 	},
 	getMenuByIdController: async (req, res) => {
 		try {
-			const { menuId, languageId } = req.params;
-			const { statusCode, message } = await getMenuById(
-				menuId,
-				languageId
-			);
+			const { menuId } = req.params;
+			const { statusCode, message } = await getMenuById(menuId);
 			return res.status(statusCode).json({ message: message });
 		} catch (e) {
 			console.log(e);

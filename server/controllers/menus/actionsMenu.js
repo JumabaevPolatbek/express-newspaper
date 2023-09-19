@@ -7,13 +7,24 @@ const validationError = require('../../services/validationError');
 module.exports = {
 	addMenuHasLanguage: async (body) => {
 		try {
-			const result = await menusTable.create({
-				...body,
+			const { title, languageId } = body;
+			const resultFind = await languageTable.findOne({
+				where: { id: languageId },
 			});
-			return {
-				statusCode: 200,
-				message: result,
-			};
+			if (resultFind !== null) {
+				const result = await menusTable.create({
+					...body,
+				});
+				return {
+					statusCode: 200,
+					message: result,
+				};
+			} else {
+				return {
+					statusCode: 401,
+					message: 'Language whis this id not exists',
+				};
+			}
 		} catch (error) {
 			console.log(error);
 			return validationError(error);
@@ -70,12 +81,12 @@ module.exports = {
 			return validationError(error);
 		}
 	},
-	getMenus: async (languageId) => {
+	getMenus: async () => {
 		try {
 			const result = await menusTable.findAll({
-				where: {
-					languageId: languageId,
-				},
+				// where: {
+				// 	languageId: languageId,
+				// },
 				include: [
 					{
 						model: menuHasLanguages,
@@ -104,7 +115,7 @@ module.exports = {
 					},
 				],
 				attributes: {
-					exclude: ['createdAt', 'updatedAt', 'languageId'],
+					exclude: ['createdAt', 'updatedAt'],
 				},
 			});
 			return {
@@ -116,12 +127,11 @@ module.exports = {
 			return validationError(e);
 		}
 	},
-	getMenuById: async (menuId, languageId) => {
+	getMenuById: async (menuId) => {
 		try {
 			const resultFind = await menusTable.findOne({
 				where: {
 					id: menuId,
-					languageId: languageId,
 				},
 				include: [
 					{

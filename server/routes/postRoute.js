@@ -32,7 +32,7 @@ router.post(
 );
 router.patch('/:postId', authMiddleware, editPostByIdController);
 router.delete('/:postId', authMiddleware, delPostByIdController);
-router.get('/all', getPostsController);
+router.get('/', getPostsController);
 router.get('/category', getPostsCategoryController);
 router.get('/menu', getPostsByMenuController);
 router.get('/:postId', getPostByIdController);

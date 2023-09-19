@@ -1,23 +1,23 @@
 import * as React from 'react';
 import {
-	Create,
+	Edit,
 	SimpleForm,
 	TextInput,
+	required,
 	ReferenceInput,
 	AutocompleteInput,
-	required,
 } from 'react-admin';
-export const CreateMenu = () => (
-	<Create>
+
+export const EditCategory = (props) => (
+	<Edit {...props}>
 		<SimpleForm>
+			<TextInput disabled label="Id" source="id" />
 			<TextInput
-				source="title"
-				title="Menu name"
-				fullWidth
+				source="name"
+				title="Category name"
 				validate={required()}
 			/>
-			<TextInput source="slug" />
-			<TextInput source="content" />
+			<TextInput source="url" />
 			<ReferenceInput
 				source="languageId"
 				reference="language"
@@ -26,5 +26,5 @@ export const CreateMenu = () => (
 				<AutocompleteInput label="Language" />
 			</ReferenceInput>
 		</SimpleForm>
-	</Create>
+	</Edit>
 );

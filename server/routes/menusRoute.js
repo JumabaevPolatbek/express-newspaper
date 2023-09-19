@@ -10,31 +10,13 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 const router = require('express').Router();
 
-router.get('/lang=:languageId', getMenusController);
+router.get('/', getMenusController);
 
-router.get(
-	'/menuId=:menuId&langId=:languageId',
-	getMenuByIdController
-);
+router.get('/:menuId', getMenuByIdController);
 
-router.post(
-	'/add',
-	authMiddleware,
-	adminMiddleware,
-	addMenuController
-);
+router.post('/create', authMiddleware, adminMiddleware, addMenuController);
 
-router.patch(
-	'/:menuId',
-	authMiddleware,
-	adminMiddleware,
-	editMenuController
-);
+router.patch('/:menuId', authMiddleware, adminMiddleware, editMenuController);
 
-router.delete(
-	'/:menuId',
-	authMiddleware,
-	adminMiddleware,
-	delMenuController
-);
+router.delete('/:menuId', authMiddleware, adminMiddleware, delMenuController);
 module.exports = router;

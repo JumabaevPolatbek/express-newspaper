@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-const api = 'http://195.158.22.198:5000/';
+const api = 'http://localhost:5000/';
 const cookie = new Cookies();
 const customDataProvider = {
 	getList: async (resource, params) => {
@@ -10,6 +10,7 @@ const customDataProvider = {
 			const resp = await axios.get(url, {
 				headers: { Authorization: `Bearer ${cookie.get('token')}` },
 			});
+			console.log(resp);
 			return {
 				data: resp.data.message,
 				total: 2,
@@ -26,6 +27,18 @@ const customDataProvider = {
 			});
 			return {
 				data: response.data.message,
+			};
+		} catch (error) {
+			throw new Error('Error fetching data ...');
+		}
+	},
+	getMany: async (resource, params) => {
+		const url = api + resource;
+		try {
+			const response = await axios.get(url);
+			const records = response.data.message.map((item) => item);
+			return {
+				data: records,
 			};
 		} catch (error) {
 			throw new Error('Error fetching data ...');

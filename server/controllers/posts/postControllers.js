@@ -94,9 +94,9 @@ module.exports = {
 	},
 	getPostsController: async (req, res) => {
 		try {
-			const language = req.get('Accept-Language');
-			const result = await getPosts(language);
-			return res.status(200).json(result);
+			// const language = req.get('Accept-Language');
+			const { statusCode, message } = await getPosts();
+			return res.status(statusCode).json({ message: message });
 		} catch (e) {
 			console.log(e);
 			return res.status(400).json(e);

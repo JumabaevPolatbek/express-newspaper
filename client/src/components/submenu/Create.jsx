@@ -7,7 +7,7 @@ import {
 	AutocompleteInput,
 	required,
 } from 'react-admin';
-export const CreateMenu = () => (
+export const CreateSubMenu = () => (
 	<Create>
 		<SimpleForm>
 			<TextInput
