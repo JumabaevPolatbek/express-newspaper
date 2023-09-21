@@ -25,7 +25,7 @@ router.post(
 	addPostBindMenuController
 );
 router.post(
-	'/category=:categoryId',
+	'/create',
 	authMiddleware,
 	arrUpload,
 	addPostBindCategoryController

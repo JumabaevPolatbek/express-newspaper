@@ -84,7 +84,7 @@ module.exports = {
 				meta_name,
 				meta_content,
 				userId,
-			} = req.body;
+			} = req.body.data;
 			const { categoryId } = req.params;
 
 			if (resultFindCategory !== null) {
