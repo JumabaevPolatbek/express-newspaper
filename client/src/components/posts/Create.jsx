@@ -6,20 +6,9 @@ import {
 	ReferenceInput,
 	AutocompleteInput,
 	required,
-	useRecordContext,
 } from 'react-admin';
 import CKEditorInput from './CKEditor';
 export const CreatePost = (props) => {
-	const [formData, setFormData] = React.useState({});
-
-	const handleInputChange = (fieldName, value) => {
-		setFormData((prevFormData) => ({
-			...prevFormData,
-			[fieldName]: value,
-		}));
-	};
-	const record = useRecordContext();
-	console.log(record);
 	return (
 		<Create {...props}>
 			<SimpleForm>
@@ -29,11 +18,7 @@ export const CreatePost = (props) => {
 					fullWidth
 					validate={required()}
 				/>
-				<CKEditorInput
-					source="content"
-					onChange={handleInputChange}
-					record={record}
-				/>
+				<CKEditorInput source="content" />
 				<ReferenceInput
 					source="languageId"
 					reference="language"

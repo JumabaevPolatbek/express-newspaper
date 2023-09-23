@@ -10,7 +10,6 @@ const customDataProvider = {
 			const resp = await axios.get(url, {
 				headers: { Authorization: `Bearer ${cookie.get('token')}` },
 			});
-			console.log(resp);
 			return {
 				data: resp.data.message,
 				total: 2,
