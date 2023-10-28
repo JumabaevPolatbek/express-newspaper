@@ -103,5 +103,8 @@ const customDataProvider = {
 			throw new Error('Error deleting data ...');
 		}
 	},
+	deleteMany: async (resource, params) => {
+		console.log(params);
+	},
 };
 export default customDataProvider;

@@ -23,12 +23,12 @@ const CKEditorInput = ({ source }) => {
 	};
 	return (
 		<>
-			<FileManagerComponent
+			{/* <FileManagerComponent
 				ajaxSettings={{
 					url: 'http://localhost:5000/images',
 					getImageUrl: 'http://localhost:5000/images',
 				}}
-			/>
+			/> */}
 			<CKEditor
 				editor={ClassicEditor}
 				onChange={handleEditorChange}

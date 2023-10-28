@@ -9,9 +9,8 @@ const menusRouter = require('./routes/menusRoute');
 const submenuRouter = require('./routes/submenuRoute');
 const postRouter = require('./routes/postRoute');
 const categoryRouter = require('./routes/categoryRoute');
-const imageRouter = require('./routes/images');
+const imageRouter = require('./routes/imagesRoute');
 const cors = require('cors');
-const { imageFolder } = require('./controllers/images/imageController');
 const corsOptions = {
 	origin: '*',
 	methods: ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'],
@@ -29,8 +28,7 @@ app.use('/menus', menusRouter);
 app.use('/submenu', submenuRouter);
 app.use('/post', postRouter);
 app.use('/category', categoryRouter);
-app.use('/images', imageRouter);
-app.use('/images', express.static(imageFolder));
+app.use('images', imageRouter);
 const start = async () => {
 	try {
 		app.listen(5000, () => console.log('Server is running 5000'));
